@@ -4,13 +4,17 @@ description: "Composite GitHub Action to setup LCOV."
 
 inputs:
   coverage-files:
-    default: "coverage/lcov*.info"
+    default: "coverage/lcov.info"
     required: false
     description: "The coverage files to scan. For example, `coverage/lcov*.info`"
   out-dir:
     default: "coverage"
     required: false
     description: " Write HTML output to OUTDIR. For example, `coverage`"
+  working-dir:
+    default: "./"
+    required: false
+    description: "The working directory containing the source files referenced in the LCOV files. Optional. Default: `./`"
 
 runs:
   using: "composite"
@@ -28,6 +32,7 @@ runs:
         genhtml $COVERAGE_FILE -o $OUTDIR
       shell: bash
       env:
+        WD: ${{ inputs.working-dir }}
         OUTDIR: ${{ inputs.out-dir }}
         COVERAGE_FILE: ${{ inputs.coverage-files }}
 
