@@ -14,3 +14,11 @@ jobs:
         shell: bash
         env:
           RANDOM_NUMBER: ${{ steps.foo.outputs.random-number }}
+  lcov:
+    runs-on: ubuntu-latest
+    name: Random Number
+    steps:
+      - uses: actions/checkout@v4
+      - uses: IDScript/DevOps/lcov@v0.0.2-4
+        with:
+          coverage-file: test/coverage/lcov.info
