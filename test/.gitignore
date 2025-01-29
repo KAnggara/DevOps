@@ -37,6 +37,9 @@ lib-cov
 
 .grunt
 
+coverage/*
+!coverage/*.info
+
 # Bower dependency directory (https://bower.io/)
 
 bower_components
