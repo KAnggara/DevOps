@@ -27,10 +27,7 @@ runs:
 
     - name: Generate Html File from lcov
       run: |
-        pwd
-        echo $WD
-        cd $WD
-        pwd
+        mkdir $GITHUB_ACTION_PATH/$OUTDIR
         genhtml $COVERAGE_FILE --rc branch_coverage=1 -o $GITHUB_ACTION_PATH/$OUTDIR
       shell: bash
       env:
@@ -41,8 +38,10 @@ runs:
     - name: Check LCOV genhtml Version
       run: |
         ls -la
-        ls -la coverage
+        ls -la $OUTDIR
       shell: bash
+      env:
+        OUTDIR: ${{ inputs.out-dir }}
 
 branding:
   icon: "play-circle"
