@@ -19,7 +19,7 @@ jobs:
     name: Lcov Test
     steps:
       - uses: actions/checkout@v4
-      - uses: IDScript/DevOps/lcov@v0.0.2-6
+      - uses: IDScript/DevOps/lcov@v0.0.2-7
         with:
           coverage-files: coverage/lcov.info
           working-dir: test
