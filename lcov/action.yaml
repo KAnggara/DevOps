@@ -6,14 +6,12 @@ inputs:
   coverage-files:
     default: "coverage/lcov.info"
     required: false
-    description: "The coverage files to scan. For example, `coverage/lcov*.info`"
+    description: "The coverage files to scan. For example, `coverage/lcov.info`"
   out-dir:
     default: "coverage"
     required: false
     description: " Write HTML output to OUTDIR. For example, `coverage`"
   working-dir:
-    default: "./"
-    required: false
     description: "The working directory containing the source files referenced in the LCOV files. Optional. Default: `./`"
 
 runs:
@@ -29,7 +27,11 @@ runs:
 
     - name: Generate Html File from lcov
       run: |
-        genhtml $COVERAGE_FILE -o $OUTDIR
+        pwd
+        echo $WD
+        cd $WD
+        pwd
+        genhtml $COVERAGE_FILE --rc branch_coverage=1 -o $GITHUB_ACTION_PATH/$OUTDIR
       shell: bash
       env:
         WD: ${{ inputs.working-dir }}
