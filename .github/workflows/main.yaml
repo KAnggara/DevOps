@@ -16,9 +16,9 @@ jobs:
           RANDOM_NUMBER: ${{ steps.foo.outputs.random-number }}
   lcov:
     runs-on: ubuntu-latest
-    name: Random Number
+    name: Lcov Test
     steps:
       - uses: actions/checkout@v4
-      - uses: IDScript/DevOps/lcov@v0.0.2-4
+      - uses: IDScript/DevOps/lcov@v0.0.2-5
         with:
           coverage-file: test/coverage/lcov.info
