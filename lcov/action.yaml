@@ -27,13 +27,9 @@ runs:
 
     - name: Generate Html File from lcov
       run: |
-        ls -la
-        mkdir $GITHUB_ACTION_PATH/$OUTDIR
-        ls -la
+        mkdir $GITHUB_WORKSPACE/$OUTDIR
         cd $WD
-        ls -la
-        genhtml $COVERAGE_FILE --rc branch_coverage=1 -o $GITHUB_ACTION_PATH/$OUTDIR
-        ls -la
+        genhtml $COVERAGE_FILE --rc branch_coverage=1 -o $GITHUB_WORKSPACE/$OUTDIR
       shell: bash
       env:
         WD: ${{ inputs.working-dir }}
@@ -44,8 +40,8 @@ runs:
       run: |
         ls -la
         pwd
-        ls -la $GITHUB_ACTION_PATH/$OUTDIR
-        cd $GITHUB_ACTION_PATH/$OUTDIR
+        ls -la $GITHUB_WORKSPACE/$OUTDIR
+        cd $GITHUB_WORKSPACE/$OUTDIR
         pwd
         ls -la
       shell: bash
