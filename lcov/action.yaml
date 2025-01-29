@@ -27,9 +27,13 @@ runs:
 
     - name: Generate Html File from lcov
       run: |
+        ls -la
         mkdir $GITHUB_ACTION_PATH/$OUTDIR
+        ls -la
         cd $WD
+        ls -la
         genhtml $COVERAGE_FILE --rc branch_coverage=1 -o $GITHUB_ACTION_PATH/$OUTDIR
+        ls -la
       shell: bash
       env:
         WD: ${{ inputs.working-dir }}
@@ -39,7 +43,11 @@ runs:
     - name: Check LCOV genhtml Version
       run: |
         ls -la
-        ls -la $OUTDIR
+        pwd
+        ls -la $GITHUB_ACTION_PATH/$OUTDIR
+        cd $GITHUB_ACTION_PATH/$OUTDIR
+        pwd
+        ls -la
       shell: bash
       env:
         OUTDIR: ${{ inputs.out-dir }}
