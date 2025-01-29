@@ -21,4 +21,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: IDScript/DevOps/lcov@v0.0.2-5
         with:
-          coverage-file: test/coverage/lcov.info
+          coverage-files: test/coverage/lcov.info
