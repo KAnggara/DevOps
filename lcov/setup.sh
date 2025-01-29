@@ -10,9 +10,9 @@ abort() {
 
 install_lcov() {
 	echo $OS_NAME
-	if [[ $OS_NAME =~ ^"Linux" ]]; then
+	if [[ $OS_NAME =~ ^"linux" ]]; then
 		sudo apt install lcov -y
-	elif [[ $OS_NAME =~ ^"Darwin" ]]; then
+	elif [[ $OS_NAME =~ ^"darwin" ]]; then
 		brew install lcov
 	else
 		echo "Unsupport Runner OS: $OS_NAME"
