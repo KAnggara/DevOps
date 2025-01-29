@@ -1,0 +1,42 @@
+name: "Setup LCOV"
+author: "KAnggara <KAnggara75@gmail.com>"
+description: "Composite GitHub Action to setup LCOV."
+
+inputs:
+  coverage-files:
+    default: "coverage/lcov*.info"
+    required: false
+    description: "The coverage files to scan. For example, `coverage/lcov*.info`"
+  out-dir:
+    default: "coverage"
+    required: false
+    description: " Write HTML output to OUTDIR. For example, `coverage`"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install LCOV
+      run: $GITHUB_ACTION_PATH/setup.sh
+      shell: bash
+
+    - name: Check LCOV genhtml Version
+      run: genhtml --version
+      shell: bash
+
+    - name: Generate Html File from lcov
+      run: |
+        genhtml $COVERAGE_FILE -o $OUTDIR
+      shell: bash
+      env:
+        OUTDIR: ${{ inputs.out-dir }}
+        COVERAGE_FILE: ${{ inputs.coverage-files }}
+
+    - name: Check LCOV genhtml Version
+      run: |
+        ls -la
+        ls -la coverage
+      shell: bash
+
+branding:
+  icon: "play-circle"
+  color: "blue"
