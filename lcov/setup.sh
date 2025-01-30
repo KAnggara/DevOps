@@ -9,7 +9,7 @@ abort() {
 }
 
 install_lcov() {
-	echo $OS_NAME
+	echo Instaling lcov.....
 	if [[ $OS_NAME =~ ^"linux" ]]; then
 		sudo apt install lcov -y >/dev/null 2>&1
 	elif [[ $OS_NAME =~ ^"darwin" ]]; then
@@ -20,8 +20,14 @@ install_lcov() {
 	fi
 }
 
+check_version() {
+	lcov --version
+	genhtml --version
+}
+
 main() {
 	install_lcov
+	check_version
 }
 
 main || abort "LCOV Setup Error!"

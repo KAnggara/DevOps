@@ -1,5 +1,6 @@
 async function main() {
-  console.log("aslkmlakm");
+  const date = new Date();
+  console.log(`Test pada => ${date.toISOString()}`);
 }
 
 main();
