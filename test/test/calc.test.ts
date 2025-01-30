@@ -1,4 +1,4 @@
-import { Calc } from "../calc";
+import { Calc } from "../src/calc";
 import { describe, expect, it } from "bun:test";
 
 describe("Test add", () => {
