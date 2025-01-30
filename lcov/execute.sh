@@ -6,7 +6,7 @@ abort() {
 	exit 1
 }
 
-install_lcov() {
+execute_lcov() {
 	pwd
 	ls -la
 	mkdir $GITHUB_WORKSPACE/$OUTDIR
