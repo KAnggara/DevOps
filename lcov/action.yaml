@@ -27,28 +27,13 @@ runs:
         WD: ${{ inputs.working-dir }}
         OUTDIR: ${{ inputs.out-dir }}
         COVERAGE_FILE: ${{ inputs.coverage-files }}
-      run: |
-        mkdir $GITHUB_WORKSPACE/$OUTDIR
-        cd $WD
-        genhtml $COVERAGE_FILE --rc branch_coverage=1 -o $GITHUB_WORKSPACE/$OUTDIR
-
-    - name: Check LCOV genhtml Version
-      shell: bash
-      env:
-        OUTDIR: ${{ inputs.out-dir }}
-      run: |
-        ls -la
-        pwd
-        ls -la $GITHUB_WORKSPACE/$OUTDIR
-        cd $GITHUB_WORKSPACE/$OUTDIR
-        pwd
-        ls -la
+      run: $GITHUB_ACTION_PATH/execute.sh
 
     - name: Setup Bun
       uses: oven-sh/setup-bun@v2
       with:
         bun-version: latest
-  
+
     - name: Build binary
       shell: bash
       run: |
