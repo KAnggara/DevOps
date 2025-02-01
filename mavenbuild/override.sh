@@ -7,7 +7,7 @@ abort() {
 }
 
 override_config() {
-	if [[ -z "$VAR" ]]; then
+	if [[ -z "$APPLICATION_PROPERTIES" ]]; then
 		echo "Variabel kosong"
 	else
 		echo "Variabel tidak kosong: $APPLICATION_PROPERTIES"
