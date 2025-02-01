@@ -2,10 +2,16 @@ name: "Maven Build"
 description: "Build Maven Project tp jar packege and upload artifact"
 
 inputs:
-  mvn-arg:
-    description: "Who to greet"
-    required: true
-    default: "World"
+  overide-application-properties:
+    description: "Value for overide application properties from secrets"
+    required: false
+    default: "false"
+  application-properties:
+    description: "Value of application properties from secrets"
+    required: false
+  path:
+    description: "Path of Maven Project, default ./"
+    required: false
 
 outputs:
   random-number:
@@ -16,15 +22,25 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
+    - name: Using Java 17
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
-    - run: mvn --batch-mode --update-snapshots verify
+
+    - name: Generate application properties if need
+      shell: bash
+      env:
+        MVN_PROJECT_PATH: ${{ inputs.path }}
+        APPLICATION_PROPERTIES: ${{ inputs.application-properties }}
+      run: $GITHUB_ACTION_PATH/override.sh
+
+    - name: Build Image
+      run: mvn --batch-mode --update-snapshots verify
       shell: bash
     - run: mkdir staging && cp target/*.jar staging
       shell: bash
     - uses: actions/upload-artifact@v4
       with:
-        name: Package
+        name: ${{ github.repository }}
         path: staging
