@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: foo
-        uses: IDScript/DevOps/random@HEAD
+        uses: KAnggara/DevOps/random@HEAD
         with:
           who-to-greet: "Mona the Octocat"
       - run: echo random-number "$RANDOM_NUMBER"
@@ -19,7 +19,7 @@ jobs:
     name: Lcov Test
     steps:
       - uses: actions/checkout@v4
-      - uses: IDScript/DevOps/lcov@HEAD
+      - uses: KAnggara/DevOps/lcov@HEAD
         with:
           coverage-files: coverage/lcov.info
           working-dir: test

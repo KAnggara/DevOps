@@ -1,0 +1,30 @@
+name: "Maven Build"
+description: "Build Maven Project tp jar packege and upload artifact"
+
+inputs:
+  mvn-arg:
+    description: "Who to greet"
+    required: true
+    default: "World"
+
+outputs:
+  random-number:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-number }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - run: mvn --batch-mode --update-snapshots verify
+      shell: bash
+    - run: mkdir staging && cp target/*.jar staging
+      shell: bash
+    - uses: actions/upload-artifact@v4
+      with:
+        name: Package
+        path: staging
