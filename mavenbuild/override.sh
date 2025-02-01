@@ -10,8 +10,9 @@ override_config() {
 	if [[ -z "$APPLICATION_PROPERTIES" ]]; then
 		echo "Variabel kosong"
 	else
-		echo "Variabel tidak kosong: $APPLICATION_PROPERTIES"
+		echo $APPLICATION_PROPERTIES | base64 --decode >src/main/resources/application.yaml
 	fi
+	cat src/main/resources/application.yaml
 	pwd
 	ls -la
 }
