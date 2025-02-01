@@ -7,13 +7,14 @@ abort() {
 }
 
 override_config() {
-	if [[ -z "$APPLICATION_PROPERTIES" ]]; then
-		echo "Variabel kosong"
-	else
-		echo "$APPLICATION_PROPERTIES" | base64 --decode >src/main/resources/application.yaml
+	if [[ -n "$APPLICATION_PROPERTIES" ]]; then
+		echo $APPLICATION_PROPERTIES >src/main/resources/application.yaml
 	fi
+
 	cat src/main/resources/application.yaml
+
 	pwd
+
 	ls -la
 }
 
