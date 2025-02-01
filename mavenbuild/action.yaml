@@ -42,5 +42,5 @@ runs:
       shell: bash
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ github.repository }}
+        name: ${{ github.event.repository.name }}
         path: staging
