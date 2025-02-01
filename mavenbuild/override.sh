@@ -8,7 +8,7 @@ abort() {
 
 override_config() {
 	if [[ -n "$APPLICATION_PROPERTIES" ]]; then
-		echo $APPLICATION_PROPERTIES >src/main/resources/application.yaml
+		printf "%s" "$APPLICATION_PROPERTIES" >src/main/resources/application.yaml
 	fi
 
 	cat src/main/resources/application.yaml
