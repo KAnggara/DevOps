@@ -2,10 +2,6 @@ name: "Maven Build"
 description: "Build Maven Project tp jar packege and upload artifact"
 
 inputs:
-  overide-application-properties:
-    description: "Value for overide application properties from secrets"
-    required: false
-    default: "false"
   application-properties:
     description: "Value of application properties from secrets"
     required: false
@@ -31,15 +27,16 @@ runs:
     - name: Generate application properties if need
       shell: bash
       env:
-        MVN_PROJECT_PATH: ${{ inputs.path }}
         APPLICATION_PROPERTIES: ${{ inputs.application-properties }}
       run: $GITHUB_ACTION_PATH/override.sh
 
     - name: Build Image
       run: mvn --batch-mode --update-snapshots verify
       shell: bash
-    - run: mkdir staging && cp target/*.jar staging
+
+    - run: mkdir $GITHUB_WORKSPACE/staging && cp $GITHUB_WORKSPACE/target/*.jar $GITHUB_WORKSPACE/staging
       shell: bash
+
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ github.event.repository.name }}

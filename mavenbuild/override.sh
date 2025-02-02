@@ -8,14 +8,14 @@ abort() {
 
 override_config() {
 	if [[ -n "$APPLICATION_PROPERTIES" ]]; then
-		printf "%s" "$APPLICATION_PROPERTIES" >src/main/resources/application.yaml
+		if [[ -f src/main/resources/application.properties ]]; then
+			printf "%s" "$APPLICATION_PROPERTIES" >src/main/resources/application.properties
+		elif [[ -f src/main/resources/application.yaml ]]; then
+			printf "%s" "$APPLICATION_PROPERTIES" >src/main/resources/application.yaml
+		else
+			abort "Error: application.yaml or application.properties not found!"
+		fi
 	fi
-
-	cat src/main/resources/application.yaml
-
-	pwd
-
-	ls -la
 }
 
 main() {
