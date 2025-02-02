@@ -25,17 +25,43 @@ runs:
       with:
         versionSpec: "6.0.x"
 
-    - name: Use GitVersion
+    - name: Execute GitVersion
       id: gitversion
       uses: gittools/actions/gitversion/execute@v3.1.1
 
-    - name: Create version.txt with MajorMinorPatch
+    - name: Create version
       shell: bash
-      run: echo ${{ steps.gitversion.outputs.MajorMinorPatch  }} > version.txt
+      env:
+        AssemblySemFileVer: ${{ steps.gitversion.outputs.AssemblySemFileVer }}
+        AssemblySemVer: ${{ steps.gitversion.outputs.AssemblySemVer }}
+        BranchName: ${{ steps.gitversion.outputs.BranchName }}
+        BuildMetaData: ${{ steps.gitversion.outputs.BuildMetaData }}
+        CommitDate: ${{ steps.gitversion.outputs.CommitDate }}
+        CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}
+        EscapedBranchName: ${{ steps.gitversion.outputs.EscapedBranchName }}
+        FullBuildMetaData: ${{ steps.gitversion.outputs.FullBuildMetaData }}
+        FullSemVer: ${{ steps.gitversion.outputs.FullSemVer }}
+        InformationalVersion: ${{ steps.gitversion.outputs.InformationalVersion }}
+        Major: ${{ steps.gitversion.outputs.Major }}
+        MajorMinorPatch: ${{ steps.gitversion.outputs.MajorMinorPatch }}
+        Minor: ${{ steps.gitversion.outputs.Minor }}
+        Patch: ${{ steps.gitversion.outputs.Patch }}
+        PreReleaseLabel: ${{ steps.gitversion.outputs.PreReleaseLabel }}
+        PreReleaseLabelWithDash: ${{ steps.gitversion.outputs.PreReleaseLabelWithDash }}
+        PreReleaseNumber: ${{ steps.gitversion.outputs.PreReleaseNumber }}
+        PreReleaseTag: ${{ steps.gitversion.outputs.PreReleaseTag }}
+        PreReleaseTagWithDash: ${{ steps.gitversion.outputs.PreReleaseTagWithDash }}
+        SemVer: ${{ steps.gitversion.outputs.SemVer }}
+        Sha: ${{ steps.gitversion.outputs.Sha }}
+        ShortSha: ${{ steps.gitversion.outputs.ShortSha }}
+        UncommittedChanges: ${{ steps.gitversion.outputs.UncommittedChanges }}
+        VersionSourceSha: ${{ steps.gitversion.outputs.VersionSourceSha }}
+        WeightedPreReleaseNumber: ${{ steps.gitversion.outputs.WeightedPreReleaseNumber }}
+      run: $GITHUB_ACTION_PATH/version.sh
 
-    - name: Upload version.txt
+    - name: Upload version
       uses: actions/upload-artifact@v4.6.0
       with:
         name: gitversion
-        path: version.txt
+        path: version
         overwrite: "true"
