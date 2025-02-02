@@ -7,11 +7,9 @@ abort() {
 }
 
 override_config() {
-	pwd
 	if [[ -n "$WORK_DIR" ]]; then
 		cd $WORK_DIR
 	fi
-	pwd
 
 	if [[ -n "$APPLICATION_PROPERTIES" ]]; then
 		if [[ -f src/main/resources/application.properties ]]; then
@@ -34,23 +32,9 @@ override_config() {
 
 maven_build() {
 	echo "MVN Build"
-	pwd
-	ls -la
-
 	mvn --batch-mode --update-snapshots verify
-	ls -la
-
-	ls -la $GITHUB_WORKSPACE
-	echo "Create folder"
 	mkdir $GITHUB_WORKSPACE/mavenbuild
-	ls -la $GITHUB_WORKSPACE
-
-	ls -la $GITHUB_WORKSPACE/mavenbuild
-	echo "Copy Jar"
 	cp target/*.jar $GITHUB_WORKSPACE/mavenbuild
-	cd $GITHUB_WORKSPACE/mavenbuild
-	pwd
-	ls -la
 }
 
 main() {

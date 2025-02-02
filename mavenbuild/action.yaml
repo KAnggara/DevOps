@@ -1,5 +1,5 @@
 name: "Maven Build"
-description: "Build Maven Project tp jar packege and upload artifact"
+description: "Build Maven Project to jar packege and upload artifact"
 
 inputs:
   application-properties:
