@@ -28,7 +28,7 @@ runs:
       env:
         WORK_DIR: ${{ inputs.path }}
         APPLICATION_PROPERTIES: ${{ inputs.application-properties }}
-      run: $GITHUB_ACTION_PATH/override.sh
+      run: $GITHUB_ACTION_PATH/mavenbuild.sh
 
     - uses: actions/upload-artifact@v4
       with:
