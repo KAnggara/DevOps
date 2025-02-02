@@ -21,13 +21,11 @@ runs:
       run: git fetch --prune --unshallow > /dev/null 2>&1
 
     - name: Install GitVersion
-      id: gitversionsetup
       uses: gittools/actions/gitversion/setup@v3.1.1
       with:
         versionSpec: "6.0.x"
 
     - name: Execute GitVersion
-      id: gitversion
       uses: gittools/actions/gitversion/execute@v3.1.1
 
     - name: Create version
