@@ -23,6 +23,7 @@ runs:
         REGISTRY: ghcr.io
         USERNAME: ${{ inputs.username }}
         PASSWORD: ${{ inputs.password }}
+        IMAGE_NAME: ${{ github.repository }}
       run: $GITHUB_ACTION_PATH/build.sh
 
     # - name: Extract metadata (tags, labels) for Docker
