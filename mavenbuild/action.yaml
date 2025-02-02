@@ -8,36 +8,29 @@ inputs:
   path:
     description: "Path of Maven Project, default ./"
     required: false
-
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-number }}
+  java-version:
+    description: 'The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file'
+  distribution:
+    description: 'Java distribution. See the list of supported distributions in README file'
+    required: true
 
 runs:
   using: "composite"
-  steps:
-    - uses: actions/checkout@v4
-    - name: Using Java 17
-      uses: actions/setup-java@v4
+  steps:      
+    - name: Using Java ${{ inputs.java-version }} ${{ inputs.distribution }}
+      uses: actions/setup-java@v4.7.0
       with:
-        java-version: '17'
-        distribution: 'temurin'
+        java-version: ${{ inputs.java-version }}
+        distribution: ${{ inputs.distribution }}
 
-    - name: Generate application properties if need
+    - name: Generate application properties and Build
       shell: bash
       env:
+        WORK_DIR: ${{ inputs.path }}
         APPLICATION_PROPERTIES: ${{ inputs.application-properties }}
       run: $GITHUB_ACTION_PATH/override.sh
-
-    - name: Build Image
-      run: mvn --batch-mode --update-snapshots verify
-      shell: bash
-
-    - run: mkdir $GITHUB_WORKSPACE/staging && cp $GITHUB_WORKSPACE/target/*.jar $GITHUB_WORKSPACE/staging
-      shell: bash
 
     - uses: actions/upload-artifact@v4
       with:
         name: ${{ github.event.repository.name }}
-        path: staging
+        path: $GITHUB_WORKSPACE/staging
