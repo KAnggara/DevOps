@@ -1,0 +1,17 @@
+name: Lcov Test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "version/**"
+      - ".github/workflows/version.yaml"
+
+jobs:
+  lcov:
+    runs-on: ubuntu-24.04
+    name: Versioning Test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: KAnggara/DevOps/version@HEAD

@@ -11,7 +11,7 @@ on:
 
 jobs:
   lcov:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Lcov Test
     steps:
       - uses: actions/checkout@v4

@@ -1,0 +1,39 @@
+name: "Create version number"
+
+description: "Create version number based on git commit"
+
+inputs:
+  path:
+    description: "Path of Maven Project, default ./"
+    required: false
+  username:
+    description: "Username used to log against the Docker registry"
+    required: true
+  password:
+    description: "Password or personal access token used to log against the Docker registry"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v3.1.1
+      with:
+        versionSpec: "6.0.x"
+
+    - name: Use GitVersion
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v3.1.1
+
+    - name: Create version.txt with MajorMinorPatch
+      run: echo ${{ steps.gitversion.outputs.MajorMinorPatch  }} > version.txt
+
+    - name: Upload version.txt
+      uses: actions/upload-artifact@v4.6.0
+      with:
+        name: gitversion
+        path: version.txt
+        overwrite: "true"
