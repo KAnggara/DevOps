@@ -1,4 +1,13 @@
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "dockerbuild/**"
+      - "dockerfile"
+      - "dockerFile"
+      - "DockerFile"
+      - "Dockerfile"
 
 jobs:
   dockerbuild:
