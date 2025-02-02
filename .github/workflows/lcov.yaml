@@ -1,19 +1,13 @@
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "lcov/**"
+      - "test/bun/coverage/**"
+      - ".github/workflows/lcov.yaml"
 
 jobs:
-  hello_world_job:
-    runs-on: ubuntu-latest
-    name: Random Number
-    steps:
-      - uses: actions/checkout@v4
-      - id: foo
-        uses: KAnggara/DevOps/random@HEAD
-        with:
-          who-to-greet: "Mona the Octocat"
-      - run: echo random-number "$RANDOM_NUMBER"
-        shell: bash
-        env:
-          RANDOM_NUMBER: ${{ steps.foo.outputs.random-number }}
   lcov:
     runs-on: ubuntu-latest
     name: Lcov Test
