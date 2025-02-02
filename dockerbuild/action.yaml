@@ -32,7 +32,7 @@ runs:
     #     images: ghcr.io/${{ github.repository }}
 
     - name: Removing login credentials for "ghcr.io"
-      if: always() # Akan selalu dijalankan
+      if: always()
       shell: bash
       run: $GITHUB_ACTION_PATH/post.sh
 
