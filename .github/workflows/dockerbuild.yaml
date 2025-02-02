@@ -8,6 +8,7 @@ on:
       - "dockerFile"
       - "DockerFile"
       - "Dockerfile"
+      - ".github/workflows/dockerbuild.yaml"
 
 jobs:
   dockerbuild:
