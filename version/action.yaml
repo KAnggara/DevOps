@@ -18,7 +18,7 @@ runs:
   steps:
     - name: Fetch all history for all tags and branches
       shell: bash
-      run: git fetch --prune --unshallow > /dev/null 2>&1
+      run: git fetch --prune --unshallow
 
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v3.1.1
