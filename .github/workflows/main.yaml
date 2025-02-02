@@ -22,4 +22,4 @@ jobs:
       - uses: KAnggara/DevOps/lcov@HEAD
         with:
           coverage-files: coverage/lcov.info
-          working-dir: test
+          working-dir: test/bun
