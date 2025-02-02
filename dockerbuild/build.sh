@@ -12,8 +12,6 @@ login() {
 	elif [[ -z "$PASSWORD" ]]; then
 		abort "Password is Required!"
 	else
-		mkdir -p /home/runner/.docker
-		echo '{ "credsStore": "pass" }' >/home/runner/.docker/config.json
 		echo "$PASSWORD" | docker login -u $USERNAME --password-stdin ghcr.io
 	fi
 }
