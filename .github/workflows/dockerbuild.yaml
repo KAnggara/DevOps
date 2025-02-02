@@ -9,3 +9,5 @@ jobs:
       - uses: KAnggara/DevOps/dockerbuild@HEAD
         with:
           path: bun
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}

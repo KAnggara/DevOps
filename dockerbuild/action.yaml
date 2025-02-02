@@ -6,11 +6,12 @@ inputs:
   path:
     description: "Path of Maven Project, default ./"
     required: false
-
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-number }}
+  username:
+    description: "Username used to log against the Docker registry"
+    required: true
+  password:
+    description: "Password or personal access token used to log against the Docker registry"
+    required: true
 
 runs:
   using: "composite"
@@ -19,7 +20,8 @@ runs:
       uses: docker/login-action@v3.3.0
       with:
         registry: ghcr.io
-        username: ${{ github.actor }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
