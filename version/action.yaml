@@ -18,9 +18,10 @@ runs:
   steps:
     - name: Fetch all history for all tags and branches
       shell: bash
-      run: git fetch --prune --unshallow
+      run: git fetch --prune --unshallow > /dev/null 2>&1
 
     - name: Install GitVersion
+      id: gitversionsetup
       uses: gittools/actions/gitversion/setup@v3.1.1
       with:
         versionSpec: "6.0.x"
@@ -37,5 +38,5 @@ runs:
       uses: actions/upload-artifact@v4.6.0
       with:
         name: gitversion
-        path: version
+        path: gitversion
         overwrite: "true"

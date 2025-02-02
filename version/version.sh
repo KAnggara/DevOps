@@ -7,9 +7,11 @@ abort() {
 }
 
 versioning() {
-	mkdir -p version
-	echo $GitVersion_SemVer >version/FullSemVer.txt
-	echo $GitVersion_MajorMinorPatch >version/MajorMinorPatch.txt
+	mkdir -p gitversion
+	echo $GitVersion_ShortSha >gitversion/ShortSha.txt
+	echo $GitVersion_SemVer >gitversion/FullSemVer.txt
+	echo $GitVersion_CommitDate >gitversion/CommitDate.txt
+	echo $GitVersion_MajorMinorPatch >gitversion/MajorMinorPatch.txt
 }
 
 main() {
