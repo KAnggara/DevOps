@@ -41,10 +41,12 @@ maven_build() {
 	ls -la
 
 	ls -la $GITHUB_WORKSPACE
+	echo "Create folder"
 	mkdir $GITHUB_WORKSPACE/mavenbuild
-	ls -la
+	ls -la $GITHUB_WORKSPACE
 
 	ls -la $GITHUB_WORKSPACE/mavenbuild
+	echo "Copy Jar"
 	cp target/*.jar $GITHUB_WORKSPACE/mavenbuild
 	cd $GITHUB_WORKSPACE/mavenbuild
 	pwd
