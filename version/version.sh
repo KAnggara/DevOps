@@ -8,8 +8,8 @@ abort() {
 
 versioning() {
 	mkdir -p version
-	echo $FullSemVer >version/FullSemVer.txt
-	echo $MajorMinorPatch >version/MajorMinorPatch.txt
+	echo $GitVersion_SemVer >version/FullSemVer.txt
+	echo $GitVersion_MajorMinorPatch >version/MajorMinorPatch.txt
 }
 
 main() {
