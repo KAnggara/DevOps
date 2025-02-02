@@ -36,6 +36,7 @@ maven_build() {
 }
 
 main() {
+	cd $GITHUB_WORKSPACE
 	override_config
 	maven_build
 }
