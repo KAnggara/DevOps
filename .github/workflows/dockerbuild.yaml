@@ -1,3 +1,5 @@
+name: Build Docker Image and Push to GHCR
+
 on:
   push:
     branches:

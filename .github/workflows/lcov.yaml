@@ -1,3 +1,5 @@
+name: Lcov Test
+
 on:
   push:
     branches:
