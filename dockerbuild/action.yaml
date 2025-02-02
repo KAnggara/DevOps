@@ -16,12 +16,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Log in to the Container registry
-      uses: docker/login-action@v3.3.0
-      with:
-        registry: ghcr.io
-        username: ${{ inputs.username }}
-        password: ${{ inputs.password }}
+    - name: Test Docker is installed
+      shell: bash
+      env:
+        WORK_DIR: ${{ inputs.path }}
+        REGISTRY: ghcr.io
+        USERNAME: ${{ inputs.username }}
+        PASSWORD: ${{ inputs.password }}
+      run: $GITHUB_ACTION_PATH/build.sh
 
     - name: Extract metadata (tags, labels) for Docker
       id: meta
@@ -29,10 +31,9 @@ runs:
       with:
         images: ghcr.io/${{ github.repository }}
 
-    - name: Test Docker is installed
+    - name: Removing login credentials for ghcr.io
+      if: always() # Akan selalu dijalankan
       shell: bash
-      env:
-        WORK_DIR: ${{ inputs.path }}
       run: $GITHUB_ACTION_PATH/build.sh
 
     # - name: Build and push Docker image
