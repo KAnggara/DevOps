@@ -31,7 +31,7 @@ runs:
     #   with:
     #     images: ghcr.io/${{ github.repository }}
 
-    - name: Removing login credentials for ghcr.io
+    - name: Removing login credentials for "ghcr.io"
       if: always() # Akan selalu dijalankan
       shell: bash
       run: $GITHUB_ACTION_PATH/post.sh

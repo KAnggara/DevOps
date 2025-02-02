@@ -7,7 +7,7 @@ abort() {
 }
 
 logout_docker() {
-	docker logout
+	docker logout ghcr.io
 }
 
 main() {

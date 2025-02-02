@@ -12,7 +12,7 @@ login() {
 	elif [[ -z "$PASSWORD" ]]; then
 		abort "Password is Required!"
 	else
-		docker login --username $USERNAME --password-stdin $PASSWORD ghcr.io
+		docker login --username $USERNAME --password $PASSWORD ghcr.io
 	fi
 }
 
