@@ -31,7 +31,9 @@ maven_build() {
 	echo "MVN Build"
 	pwd
 	mvn --batch-mode --update-snapshots verify
-	mkdir $GITHUB_WORKSPACE/$WORK_DIR/staging
+	ls -la
+	mkdir $GITHUB_WORKSPACE/staging
+	ls -la
 	cp target/*.jar $GITHUB_WORKSPACE/staging
 }
 

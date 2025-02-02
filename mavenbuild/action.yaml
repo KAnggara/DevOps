@@ -16,9 +16,7 @@ inputs:
 
 runs:
   using: "composite"
-  steps:
-    - uses: actions/checkout@v4.2.2
-      
+  steps:      
     - name: Using Java ${{ inputs.java-version }} ${{ inputs.distribution }}
       uses: actions/setup-java@v4.7.0
       with:
