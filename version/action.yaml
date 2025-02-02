@@ -17,6 +17,7 @@ runs:
   using: "composite"
   steps:
     - name: Fetch all history for all tags and branches
+      shell: bash
       run: git fetch --prune --unshallow
 
     - name: Install GitVersion
@@ -29,6 +30,7 @@ runs:
       uses: gittools/actions/gitversion/execute@v3.1.1
 
     - name: Create version.txt with MajorMinorPatch
+      shell: bash
       run: echo ${{ steps.gitversion.outputs.MajorMinorPatch  }} > version.txt
 
     - name: Upload version.txt

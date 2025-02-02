@@ -1,4 +1,4 @@
-name: Lcov Test
+name: Versioning Test
 
 on:
   push:
