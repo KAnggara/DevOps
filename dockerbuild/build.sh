@@ -21,6 +21,8 @@ docker_build() {
 		cd $WORK_DIR
 	fi
 
+	IMAGE_NAME=$(echo "$IMAGE_NAME" | sed 's/.*/\L&/')
+
 	docker build . --tag ghcr.io/$IMAGE_NAME:latest
 	docker push ghcr.io/$IMAGE_NAME:latest
 
