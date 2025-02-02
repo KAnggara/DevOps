@@ -21,7 +21,7 @@ RUN bun build \
 	--minify-syntax \
 	--target bun \
 	--outfile app \
-	./src/index.ts
+	./src/calc.ts
 
 
 # copy production dependencies and source code into final image
