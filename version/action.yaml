@@ -32,7 +32,7 @@ runs:
 
     - name: Create version
       shell: bash
-      run: $GITHUB_ACTION_PATH/version.sh > /dev/null 2>&1
+      run: $GITHUB_ACTION_PATH/version.sh
 
     - name: Upload version
       uses: actions/upload-artifact@v4.6.0
