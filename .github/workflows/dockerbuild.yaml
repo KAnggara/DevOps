@@ -1,0 +1,11 @@
+on: [push]
+
+jobs:
+  dockerbuild:
+    runs-on: ubuntu-latest
+    name: Build Docker Image
+    steps:
+      - uses: actions/checkout@v4
+      - uses: KAnggara/DevOps/dockerbuild@HEAD
+        with:
+          path: bun
