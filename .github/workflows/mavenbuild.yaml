@@ -1,0 +1,25 @@
+name: Maven Build
+
+on:
+  push:
+    branches:
+      - main
+      - feature-mavenbuild
+    paths:
+      - "mavenbuild/**"
+      - ".github/workflows/mavenbuild.yaml"
+
+jobs:
+  mavenbuild:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    name: Build Docker Image
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: KAnggara/DevOps/mavenbuild@feature-mavenbuild
+        with:
+          path: test/mvn
