@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feature-dockerbuild
     paths:
       - "dockerbuild/**"
       - "dockerfile"
@@ -23,7 +24,7 @@ jobs:
     name: Build Docker Image
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/dockerbuild@HEAD
+      - uses: KAnggara/DevOps/dockerbuild@feature-dockerbuild
         with:
           path: test/bun
           username: ${{ github.actor }}
