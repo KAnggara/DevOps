@@ -31,4 +31,4 @@ runs:
       env:
         WORK_DIR: ${{ inputs.path }}
         APPLICATION_PROPERTIES: ${{ inputs.application-properties }}
-      run: $GITHUB_ACTION_PATH/maventest.sh
+      run: $GITHUB_ACTION_PATH/mvntest.sh
