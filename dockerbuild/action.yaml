@@ -34,8 +34,8 @@ runs:
       with:
         account: ${{ github.repository_owner }}
         token: ${{ inputs.github_token }}
-        image-names: ${{ github.repository }}
-        image-tags: "!latest"
+        image-names: $(echo "${{ github.repository }}" | cut -d'/' -f2)
+        image-tags: "!latest !release"
         cut-off: 10d
 
     - name: Removing login credentials for "ghcr.io"
