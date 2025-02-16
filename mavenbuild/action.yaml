@@ -9,10 +9,13 @@ inputs:
     description: "Path of Maven Project, default ./"
     required: false
   java-version:
-    description: 'The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file'
+    description: 'The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file, default `21`'
+    default: "21"
+    required: false
   distribution:
-    description: 'Java distribution. See the list of supported distributions in README file'
-    required: true
+    description: 'Java distribution. See the list of supported distributions in README file, default `temurin`'
+    default: "temurin"
+    required: false
 
 runs:
   using: "composite"
