@@ -17,7 +17,7 @@ runs:
       shell: bash
       env:
         WORK_DIR: ${{ inputs.path }}
-        GITHUB_TOKEN: ${{ inputs.github_token }}
+        GH_TOKEN: ${{ inputs.github_token }}
       run: $GITHUB_ACTION_PATH/delete.sh
 
     - name: Removing login credentials for "ghcr.io"

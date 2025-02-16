@@ -7,10 +7,10 @@ abort() {
 }
 
 login() {
-	if [[ -z "$GITHUB_TOKEN" ]]; then
+	if [[ -z "$GH_TOKEN" ]]; then
 		abort "Token is Required!"
 	else
-		echo $GITHUB_TOKEN | gh auth login --with-token
+		echo $GH_TOKEN | gh auth login --with-token
 	fi
 }
 
