@@ -1,25 +1,25 @@
-name: Maven Build
+name: Maven Test 🧪
 
 on:
   push:
     branches:
       - main
-      - feature-mavenbuild
+      - feature-maventest
     paths:
-      - "mavenbuild/**"
-      - ".github/workflows/mavenbuild.yaml"
+      - "maventest/**"
+      - ".github/workflows/maventest.yaml"
 
 jobs:
-  mavenbuild:
+  maventest:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
       attestations: write
       id-token: write
-    name: Build Maven
+    name: Maven Test
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/mavenbuild@feature-mavenbuild
+      - uses: KAnggara/DevOps/maventest@feature-maventest
         with:
           path: test/mvn
