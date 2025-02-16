@@ -7,6 +7,7 @@ on:
       - feature-dockerbuild
     paths:
       - "dockerbuild/**"
+      - "ghcr/delete/**"
       - "dockerfile"
       - "dockerFile"
       - "DockerFile"
