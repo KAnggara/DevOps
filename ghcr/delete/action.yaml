@@ -16,7 +16,7 @@ runs:
       env:
         WORK_DIR: ${{ inputs.path }}
         GITHUB_TOKEN: ${{ inputs.github_token }}
-      run: $GITHUB_ACTION_PATH/build.sh
+      run: $GITHUB_ACTION_PATH/delete.sh
 
     - name: Removing login credentials for "ghcr.io"
       if: always()
