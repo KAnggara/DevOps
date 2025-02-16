@@ -1,5 +1,7 @@
 name: "GHCR Remove Old Image"
 
+description: "Remove ghcr Image"
+
 inputs:
   path:
     description: "Path of Maven Project, default ./"

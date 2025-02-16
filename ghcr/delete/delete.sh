@@ -18,4 +18,4 @@ main() {
 	login
 }
 
-main || abort "Docker Build Execute Error!"
+main || abort "GHCR Delete Execute Error!"
