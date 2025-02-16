@@ -73,9 +73,7 @@ filter_version() {
 
 		if [[ "$TAGS" == *"release"* ]]; then
 			CREATED_AT=$(echo "$VERSION" | jq -r '.created_at')
-			TIMESTAMP_CREATED_AT=$(date -j -f "%Y-%m-%dT%H:%M:%SZ" "$CREATED_AT" "+%s")
-			TIMESTAMP_CREATED_AT=$(date -j -f "%Y-%m-%dT%H:%M:%SZ" "2024-02-16T12:58:00Z" "+%s")
-			# TIMESTAMP_CREATED_AT=$(date -d "$CREATED_AT" +%s)
+			TIMESTAMP_CREATED_AT=$(date -d "$CREATED_AT" +%s)
 
 			DIFF_DAYS=$(((TIMESTAMP_NOW - TIMESTAMP_CREATED_AT) / 86400))
 
