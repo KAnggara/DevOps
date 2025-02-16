@@ -25,7 +25,7 @@ docker_build() {
 
 	echo "Branch nya adalah $BRANCH"
 
-	if [[ "$BRANCH" == "main" || "$BRANCH" == "master" ]]; then
+	if [[ "$BRANCH" == "main" || "$BRANCH" == "master" || "$BRANCH" == "feature-dockerbuild" ]]; then
 		DATE=$(date +"%Y%m%d")
 		docker build . -t ghcr.io/$IMAGE_NAME:release-$DATE -t ghcr.io/$IMAGE_NAME:latest
 		docker push ghcr.io/$IMAGE_NAME:release-$DATE
