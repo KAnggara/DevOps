@@ -24,17 +24,11 @@ runs:
       env:
         WORK_DIR: ${{ inputs.path }}
         REGISTRY: ghcr.io
-        BRANCH: ${{ github.head_ref }}
+        BRANCH: ${GITHUB_REF#refs/heads/}
         USERNAME: ${{ inputs.username }}
         PASSWORD: ${{ inputs.password }}
         IMAGE_NAME: ${{ github.repository }}
       run: $GITHUB_ACTION_PATH/build.sh
-    - name: test
-      shell: bash
-      run: |
-        echo "Branchnya adalah"
-        echo ${{ github.head_ref }}
-      
 
     # - name: Delete untagged package versions
     #   uses: KAnggara/DevOps/ghcr/delete@feature-dockerbuild
