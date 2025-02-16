@@ -29,3 +29,4 @@ jobs:
           path: test/bun
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}

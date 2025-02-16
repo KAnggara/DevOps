@@ -12,6 +12,9 @@ inputs:
   password:
     description: "Password or personal access token used to log against the Docker registry"
     required: true
+  github_token:
+    description: "The secrets that you create are available to use in GitHub Actions workflows"
+    required: true
 
 runs:
   using: "composite"
@@ -30,7 +33,7 @@ runs:
       uses: snok/container-retention-policy@v3.0.0
       with:
         account: ${{ github.repository_owner }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ inputs.github_token }}
         image-names: ${{ github.repository }}
         tag-selection: "!latest"
         cut-off: 10d
