@@ -27,7 +27,7 @@ docker_build() {
 		DATE=$(date +"%Y%m%d")
 		docker build . -t ghcr.io/$IMAGE_NAME:release-$DATE -t ghcr.io/$IMAGE_NAME:latest
 		docker push ghcr.io/$IMAGE_NAME:release-$DATE
-	elif [[ "$BRANCH" == feature-* ]]; then
+	elif [[ "$BRANCH" == "feature-"* ]]; then
 		docker build . -t ghcr.io/$IMAGE_NAME:sit -t ghcr.io/$IMAGE_NAME:latest
 		docker push ghcr.io/$IMAGE_NAME:sit
 	else
