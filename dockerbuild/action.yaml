@@ -1,6 +1,6 @@
-name: "Docker Image Build"
+name: "Docker Image Build ghcr"
 
-description: "Greet someone"
+description: "Docker Image Build and upload to ghcr"
 
 inputs:
   path:
@@ -30,13 +30,9 @@ runs:
       run: $GITHUB_ACTION_PATH/build.sh
 
     - name: Delete untagged package versions
-      uses: snok/container-retention-policy@v3.0.0
+      uses: KAnggara/DevOps/ghcr/delete@feature-dockerbuild
       with:
-        account: ${{ github.repository_owner }}
-        token: ${{ inputs.github_token }}
-        image-names: $(echo "${{ github.repository }}" | cut -d'/' -f2)
-        image-tags: "!latest !release"
-        cut-off: 10d
+        github_token: ${{ inputs.github_token }}
 
     - name: Removing login credentials for "ghcr.io"
       if: always()

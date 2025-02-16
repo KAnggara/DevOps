@@ -1,0 +1,25 @@
+name: "GHCR Remove Old Image"
+
+inputs:
+  path:
+    description: "Path of Maven Project, default ./"
+    required: false
+  github_token:
+    description: "The secrets that you create are available to use in GitHub Actions workflows"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Test Docker is installed
+      shell: bash
+      env:
+        WORK_DIR: ${{ inputs.path }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+      run: $GITHUB_ACTION_PATH/build.sh
+
+    - name: Removing login credentials for "ghcr.io"
+      if: always()
+      shell: bash
+      run: $GITHUB_ACTION_PATH/post.sh
+
