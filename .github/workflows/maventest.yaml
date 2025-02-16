@@ -20,6 +20,6 @@ jobs:
     name: Maven Test
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/maventest@feature-maventest
+      - uses: KAnggara/DevOps/mvntest@feature-maventest
         with:
           path: test/mvn
