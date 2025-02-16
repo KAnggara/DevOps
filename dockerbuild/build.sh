@@ -23,9 +23,19 @@ docker_build() {
 
 	IMAGE_NAME=$(echo "$IMAGE_NAME" | sed 's/.*/\L&/')
 
-	docker build . --tag ghcr.io/$IMAGE_NAME:latest
-	docker push ghcr.io/$IMAGE_NAME:latest
+	if [[ "$BRANCH" == "main" || "$BRANCH" == "master" ]]; then
+		DATE=$(date +"%Y%m%d")
+		docker build . -t ghcr.io/$IMAGE_NAME:release-$DATE -t ghcr.io/$IMAGE_NAME:latest
+		docker push ghcr.io/$IMAGE_NAME:release-$DATE
+	elif [[ "$BRANCH" == feature-* ]]; then
+		docker build . -t ghcr.io/$IMAGE_NAME:sit -t ghcr.io/$IMAGE_NAME:latest
+		docker push ghcr.io/$IMAGE_NAME:sit
+	else
+		docker build . -t ghcr.io/$IMAGE_NAME:dev -t ghcr.io/$IMAGE_NAME:latest
+		docker push ghcr.io/$IMAGE_NAME:dev
+	fi
 
+	docker push ghcr.io/$IMAGE_NAME:latest
 }
 
 main() {

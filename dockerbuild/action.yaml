@@ -24,6 +24,7 @@ runs:
       env:
         WORK_DIR: ${{ inputs.path }}
         REGISTRY: ghcr.io
+        BRANCH: ${{ github.head_ref }}
         USERNAME: ${{ inputs.username }}
         PASSWORD: ${{ inputs.password }}
         IMAGE_NAME: ${{ github.repository }}
