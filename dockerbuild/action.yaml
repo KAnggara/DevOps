@@ -26,29 +26,17 @@ runs:
         IMAGE_NAME: ${{ github.repository }}
       run: $GITHUB_ACTION_PATH/build.sh
 
-    # - name: Extract metadata (tags, labels) for Docker
-    #   id: meta
-    #   uses: docker/metadata-action@v5.6.1
-    #   with:
-    #     images: ghcr.io/${{ github.repository }}
+    - name: Delete untagged package versions
+      uses: snok/container-retention-policy@v3.0.0
+      with:
+        account: ${{ github.repository_owner }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        image-names: ${{ github.repository }}
+        tag-selection: "!latest"
+        cut-off: 10d
 
     - name: Removing login credentials for "ghcr.io"
       if: always()
       shell: bash
       run: $GITHUB_ACTION_PATH/post.sh
 
-    # - name: Build and push Docker image
-    #   id: push
-    #   uses: docker/build-push-action@v6.13.0
-    #   with:
-    #     push: true
-    #     context: "{{defaultContext}}:${{ inputs.path }}"
-    #     tags: ${{ steps.meta.outputs.tags }}
-    #     labels: ${{ steps.meta.outputs.labels }}
-
-    # - name: Generate artifact attestation
-    #   uses: actions/attest-build-provenance@v2.2.0
-    #   with:
-    #     subject-name: ghcr.io/${{ github.repository }}
-    #     subject-digest: ${{ steps.push.outputs.digest }}
-    #     push-to-registry: true
