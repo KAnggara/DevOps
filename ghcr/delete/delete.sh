@@ -11,7 +11,7 @@ abort() {
 }
 
 load() {
-	eval "$(curl -Ls -H "${GH_TOKEN}" ${FUNCTION_URL}/login.sh)"
+	eval "$(curl -Ls -H "${GH_TOKEN}" ${FUNCTION_URL}/gh_login.sh)"
 	eval "$(curl -Ls -H "${GH_TOKEN}" ${FUNCTION_URL}/get_version.sh)"
 	eval "$(curl -Ls -H "${GH_TOKEN}" ${FUNCTION_URL}/delete_image.sh)"
 }
@@ -56,7 +56,8 @@ check_tag() {
 		fi
 
 		if [[ ($NON_RELEASE_COUNT -gt $KEEP_NON_RELEASE && "$IS_NON_RELEASE" == true) || ($RELEASE_COUNT -gt $KEEP_RELEASE && "$IS_RELEASE" == true) ]]; then
-			delete_image $VERSION_ID $TAGS
+			IMAGE_NAME=$(echo "$VERSION" | jq -r '.name')
+			delete_image $VERSION_ID $IMAGE_NAME $TAGS
 		else
 			echo -e "⏭️ Keep\t\t: $VERSION_ID \t"SAVE"\t $TAGS"
 		fi
@@ -67,7 +68,7 @@ check_tag() {
 main() {
 	load
 	setup
-	login
+	gh_login
 	get_package_list
 	check_tag
 }
