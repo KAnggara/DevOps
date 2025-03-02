@@ -20,7 +20,7 @@ runs:
         KEEP_RELEASE: ${{ inputs.github_token }}
         RETENTION_DAYS: ${{ inputs.retention_days }}
         KEEP_NON_RELEASE: ${{ inputs.github_token }}
-      run: $GITHUB_ACTION_PATH/coba.sh
+      run: $GITHUB_ACTION_PATH/delete.sh
 
     - name: Removing login credentials for "ghcr.io"
       if: always()
