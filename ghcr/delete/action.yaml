@@ -6,8 +6,11 @@ inputs:
   github_token:
     description: "The secrets that you create are available to use in GitHub Actions workflows"
     required: true
-  retention_days:
-    description: "Retention days default 30 days"
+  keep_release:
+    description: "Keep release image, default 5 images"
+    required: false
+  keep_non_release:
+    description: "Keep non release/prod image, default 5 images"
     required: false
 
 runs:
@@ -18,9 +21,9 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.github_token }}
         ORG_NAME: ${{ github.repository_owner}}
-        REPO_NAME: $(echo "${{ github.repository }}" | cut -d'/' -f2)
-        KEEP_RELEASE: ${{ inputs.github_token }}
-        KEEP_NON_RELEASE: ${{ inputs.github_token }}
+        REPO_NAME: ${{ github.repository }}
+        KEEP_RELEASE: ${{ inputs.keep_release }}
+        KEEP_NON_RELEASE: ${{ inputs.keep_non_release }}
         FUNCTION_URL: "https://raw.githubusercontent.com/KAnggara/DevOps/refs/heads/feature-dockerbuild/ghcr/func"
       run: $GITHUB_ACTION_PATH/delete.sh
 
