@@ -11,16 +11,9 @@ abort() {
 }
 
 load() {
-	if [ -d "../func" ]; then
-		for file in ../func/*.sh; do
-			echo "Load $file"
-			[ -f "$file" ] && source "$file"
-			sleep 0.1
-		done
-		clear
-	else
-		echo "Folder '../func' tidak ditemukan!"
-	fi
+	eval "$(curl -Ls -H "${GH_TOKEN}" ${FUNCTION_URL}/login.sh)"
+	eval "$(curl -Ls -H "${GH_TOKEN}" ${FUNCTION_URL}/get_version.sh)"
+	eval "$(curl -Ls -H "${GH_TOKEN}" ${FUNCTION_URL}/delete_image.sh)"
 }
 
 setup() {

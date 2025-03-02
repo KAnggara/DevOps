@@ -21,6 +21,7 @@ runs:
         REPO_NAME: $(echo "${{ github.repository }}" | cut -d'/' -f2)
         KEEP_RELEASE: ${{ inputs.github_token }}
         KEEP_NON_RELEASE: ${{ inputs.github_token }}
+        FUNCTION_URL: "https://raw.githubusercontent.com/KAnggara/DevOps/refs/heads/feature-dockerbuild/ghcr/func"
       run: $GITHUB_ACTION_PATH/delete.sh
 
     - name: Removing login credentials for "ghcr.io"
