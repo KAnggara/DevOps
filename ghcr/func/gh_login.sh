@@ -1,4 +1,4 @@
-function login() {
+function gh_login() {
 	echo
 	echo "🔑 Login to GitHub..."
 	if [[ -z "$GH_TOKEN" ]]; then

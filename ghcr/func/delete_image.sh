@@ -3,13 +3,15 @@ function delete_image() {
 		abort "Error: Parameter 'id' required!"
 	fi
 
-	local id=$1
-	local tag=${2:-}
-	local tiga=${3:-}
-	local COUNT=${4:-}
-	local RELEASE_COUNT=${5:-}
+	if [[ -z "$2" ]]; then
+		abort "Error: Parameter 'name' required!"
+	fi
 
-	echo -e "🔥 Delete\t: $id \t"DELETE"\t $tag"
+	local id=$1
+	local IMAGE_NAME=$2
+	local TAG=${3:-}
+
+	echo -e "🔥 Delete\t: $id \t"DELETE"\t $TAG"
 
 	# gh api --method DELETE "/orgs/$ORG_NAME/packages/container/$IMAGE_NAME/versions/$id"
 }
