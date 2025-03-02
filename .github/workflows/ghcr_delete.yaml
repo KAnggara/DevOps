@@ -20,6 +20,6 @@ jobs:
     name: Delete Images from Registry
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/ghcr.delete@feature-dockerbuild
+      - uses: KAnggara/DevOps/ghcr/delete@feature-dockerbuild
         with:
           github_token: ${{ secrets.GH_TOKEN }}
