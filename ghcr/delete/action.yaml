@@ -17,8 +17,9 @@ runs:
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.github_token }}
+        ORG_NAME: ${{ github.repository_owner}}
+        REPO_NAME: $(echo "${{ github.repository }}" | cut -d'/' -f2)
         KEEP_RELEASE: ${{ inputs.github_token }}
-        RETENTION_DAYS: ${{ inputs.retention_days }}
         KEEP_NON_RELEASE: ${{ inputs.github_token }}
       run: $GITHUB_ACTION_PATH/delete.sh
 
