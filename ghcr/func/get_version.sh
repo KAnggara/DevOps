@@ -13,7 +13,9 @@ function get_package_list() {
 		VERSIONS=$(gh api --paginate "/users/$ORG_NAME/packages/container/$REPO_NAME/versions")
 	fi
 
-	if [[ $(echo "$VERSIONS" | jq -r '.status') == "404" ]]; then
+	STATUS=$(echo "$VERSIONS" | jq -r 'try .status catch "200"')
+
+	if [[ $STATUS == "404" ]]; then
 		echo "🚀 No Image on $ORG_NAME/$REPO_NAME."
 		exit 0
 	fi

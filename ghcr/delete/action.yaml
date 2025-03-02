@@ -6,6 +6,9 @@ inputs:
   github_token:
     description: "The secrets that you create are available to use in GitHub Actions workflows"
     required: true
+  retention_days:
+    description: "Retention days default 30 days"
+    required: false
 
 runs:
   using: "composite"
@@ -14,6 +17,9 @@ runs:
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.github_token }}
+        KEEP_RELEASE: ${{ inputs.github_token }}
+        RETENTION_DAYS: ${{ inputs.retention_days }}
+        KEEP_NON_RELEASE: ${{ inputs.github_token }}
       run: $GITHUB_ACTION_PATH/coba.sh
 
     - name: Removing login credentials for "ghcr.io"
