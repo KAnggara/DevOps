@@ -13,5 +13,5 @@ function delete_image() {
 
 	echo -e "🔥 Delete\t: $id \t"DELETE"\t $TAG"
 
-	# gh api --method DELETE "/orgs/$ORG_NAME/packages/container/$IMAGE_NAME/versions/$id"
+	gh api --method DELETE "/orgs/$ORG_NAME/packages/container/$IMAGE_NAME/versions/$id"
 }

@@ -37,12 +37,12 @@ setup() {
 
 check_tag() {
 	echo "$VERSIONS" | jq -c '.[]' | while read -r VERSION; do
-		IS_RELEASE=false
-		IS_NON_RELEASE=false
+		local IS_RELEASE=false
+		local IS_NON_RELEASE=false
 
-		TAGS=$(echo "$VERSION" | jq -r '.metadata.container.tags[]' | tr '\n' ' ')
+		local TAGS=$(echo "$VERSION" | jq -r '.metadata.container.tags[]' | tr '\n' ' ')
 
-		VERSION_ID=$(echo "$VERSION" | jq -r '.id')
+		local VERSION_ID=$(echo "$VERSION" | jq -r '.id')
 
 		if [[ "$TAGS" == *"release"* ]]; then
 			IS_RELEASE=true
@@ -56,7 +56,7 @@ check_tag() {
 		fi
 
 		if [[ ($NON_RELEASE_COUNT -gt $KEEP_NON_RELEASE && "$IS_NON_RELEASE" == true) || ($RELEASE_COUNT -gt $KEEP_RELEASE && "$IS_RELEASE" == true) ]]; then
-			IMAGE_NAME=$(echo "$VERSION" | jq -r '.name')
+			local IMAGE_NAME=$(echo "$VERSION" | jq -r '.name')
 			delete_image $VERSION_ID $IMAGE_NAME $TAGS
 		else
 			echo -e "⏭️ Keep\t\t: $VERSION_ID \t"SAVE"\t $TAGS"
