@@ -1,0 +1,25 @@
+name: Delete Images from Registry
+
+on:
+  push:
+    branches:
+      - main
+      - feature-dockerbuild
+    paths:
+      - "ghcr/delete/**"
+      - ".github/workflows/ghcr_delete.yaml"
+
+jobs:
+  ghcr_delete:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    name: Delete Images from Registry
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: KAnggara/DevOps/ghcr.delete@feature-dockerbuild
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}

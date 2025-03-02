@@ -41,7 +41,7 @@ setup() {
 		DAYS=$RETENTION_DAYS
 	fi
 
-	echo "🛑 Delete images $DAYS days old, Keep latest $KEEP images..."
+	echo "🛑 Delete images $DAYS days old, Keep latest $KEEP non release and $KEEP_RELEASE release images..."
 	echo
 }
 
