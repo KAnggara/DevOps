@@ -56,8 +56,7 @@ check_tag() {
 		fi
 
 		if [[ ($NON_RELEASE_COUNT -gt $KEEP_NON_RELEASE && "$IS_NON_RELEASE" == true) || ($RELEASE_COUNT -gt $KEEP_RELEASE && "$IS_RELEASE" == true) ]]; then
-			local IMAGE_NAME=$(echo "$VERSION" | jq -r '.name')
-			delete_image $VERSION_ID $IMAGE_NAME $TAGS
+			delete_image $VERSION_ID $TAGS
 		else
 			echo -e "⏭️ Keep\t\t: $VERSION_ID \t"SAVE"\t $TAGS"
 		fi
