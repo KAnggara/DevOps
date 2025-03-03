@@ -30,11 +30,6 @@ runs:
         IMAGE_NAME: ${{ github.repository }}
       run: $GITHUB_ACTION_PATH/build.sh
 
-    # - name: Delete untagged package versions
-    #   uses: KAnggara/DevOps/ghcr/delete@feature-dockerbuild
-    #   with:
-    #     github_token: ${{ inputs.github_token }}
-
     - name: Removing login credentials for "ghcr.io"
       if: always()
       shell: bash

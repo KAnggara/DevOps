@@ -36,8 +36,6 @@ docker_build() {
 		docker build . -t ghcr.io/$IMAGE_NAME:dev -t ghcr.io/$IMAGE_NAME:latest
 		docker push ghcr.io/$IMAGE_NAME:dev
 	fi
-
-	docker push ghcr.io/$IMAGE_NAME:latest
 }
 
 main() {
