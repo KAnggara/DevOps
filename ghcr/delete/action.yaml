@@ -10,7 +10,7 @@ inputs:
     description: "Keep release image, default 5 images"
     required: false
   keep_non_release:
-    description: "Keep non release/prod image, default 5 images"
+    description: "Keep non release/prod image, default 2 images"
     required: false
 
 runs:
