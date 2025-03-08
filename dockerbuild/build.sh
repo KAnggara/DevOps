@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eu
 
+SHORT_SHA=$(echo $SHA | head -c 7)
+
 abort() {
 	printf "%s\n" "$@"
 	exit 1
@@ -29,9 +31,9 @@ docker_build() {
 		DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
 		docker build . -t $REGISTRY/$IMAGE_NAME:release-$DATE -t $REGISTRY/$IMAGE_NAME:latest
 	elif [[ "$BRANCH" == "feature-"* ]]; then
-		docker build . -t $REGISTRY/$IMAGE_NAME:sit-$SHA -t $REGISTRY/$IMAGE_NAME:latest
+		docker build . -t $REGISTRY/$IMAGE_NAME:sit-$SHORT_SHA -t $REGISTRY/$IMAGE_NAME:latest
 	else
-		docker build . -t $REGISTRY/$IMAGE_NAME:dev-$SHA -t $REGISTRY/$IMAGE_NAME:latest
+		docker build . -t $REGISTRY/$IMAGE_NAME:dev-$SHORT_SHA -t $REGISTRY/$IMAGE_NAME:latest
 	fi
 
 	docker push --all-tags $REGISTRY/$IMAGE_NAME
