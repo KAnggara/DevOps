@@ -24,17 +24,17 @@ runs:
       env:
         SHA: ${{ github.sha }}
         WORK_DIR: ${{ inputs.path }}
-        REGISTRY: ${{ input.registry }}
+        REGISTRY: ${{ inputs.registry }}
         USERNAME: ${{ inputs.username }}
         PASSWORD: ${{ inputs.password }}
         IMAGE_NAME: ${{ github.repository }}
         BRANCH: ${{ github.head_ref || github.ref_name }} 
       run: $GITHUB_ACTION_PATH/build.sh
 
-    - name: Removing login credentials for ${{ input.registry }}
+    - name: Removing login credentials for ${{ inputs.registry }}
       if: always()
       shell: bash
       env:
-        REGISTRY: ${{ input.registry }}
+        REGISTRY: ${{ inputs.registry }}
       run: $GITHUB_ACTION_PATH/post.sh
 
