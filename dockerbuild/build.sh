@@ -29,14 +29,14 @@ docker_build() {
 
 	if [[ "$BRANCH" == "main" || "$BRANCH" == "master" ]]; then
 		DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
-		docker build . -t $REGISTRY/$IMAGE_NAME:release-$DATE -t $REGISTRY/$IMAGE_NAME:latest
+		docker build . -t $IMAGE_NAME:release-$DATE -t $IMAGE_NAME:latest
 	elif [[ "$BRANCH" == "feature-"* ]]; then
-		docker build . -t $REGISTRY/$IMAGE_NAME:sit-$SHORT_SHA -t $REGISTRY/$IMAGE_NAME:latest
+		docker build . -t $IMAGE_NAME:sit-$SHORT_SHA -t $IMAGE_NAME:latest
 	else
-		docker build . -t $REGISTRY/$IMAGE_NAME:dev-$SHORT_SHA -t $REGISTRY/$IMAGE_NAME:latest
+		docker build . -t $IMAGE_NAME:dev-$SHORT_SHA -t $IMAGE_NAME:latest
 	fi
 
-	docker push --all-tags $REGISTRY/$IMAGE_NAME
+	docker push --all-tags $IMAGE_NAME
 }
 
 main() {
