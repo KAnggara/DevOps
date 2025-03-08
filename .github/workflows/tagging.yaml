@@ -23,4 +23,4 @@ jobs:
       - name: Create version
         shell: bash
         run: |
-          echo $GitVersion_SemVer
+          echo $majorMinorPatch
