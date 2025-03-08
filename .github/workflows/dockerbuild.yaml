@@ -45,5 +45,6 @@ jobs:
         with:
           path: test/bun
           registry: docker.io
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          image_name: kanggara75/devops
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
