@@ -15,9 +15,6 @@ inputs:
   registry:
     description: "Docker Push registry"
     required: true
-  github_token:
-    description: "The secrets that you create are available to use in GitHub Actions workflows"
-    required: true
 
 runs:
   using: "composite"
