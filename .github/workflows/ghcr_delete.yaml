@@ -7,6 +7,12 @@ on:
       - feature-dockerbuild
     paths:
       - "ghcr/delete/**"
+      - "dockerbuild/**"
+      - "dockerfile"
+      - "dockerFile"
+      - "DockerFile"
+      - "Dockerfile"
+      - ".github/workflows/dockerbuild.yaml"
       - ".github/workflows/ghcr_delete.yaml"
 
 jobs:
