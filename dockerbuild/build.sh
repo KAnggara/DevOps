@@ -12,7 +12,7 @@ login() {
 	elif [[ -z "$PASSWORD" ]]; then
 		abort "Password is Required!"
 	else
-		echo "$PASSWORD" | docker login -u $USERNAME --password-stdin ghcr.io
+		echo "$PASSWORD" | docker login -u $USERNAME --password-stdin $REGISTRY
 	fi
 }
 
@@ -27,15 +27,14 @@ docker_build() {
 
 	if [[ "$BRANCH" == "main" || "$BRANCH" == "master" ]]; then
 		DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
-		docker build . -t ghcr.io/$IMAGE_NAME:release-$DATE -t ghcr.io/$IMAGE_NAME:latest
-		docker push ghcr.io/$IMAGE_NAME:release-$DATE
+		docker build . -t $REGISTRY/$IMAGE_NAME:release-$DATE -t $REGISTRY/$IMAGE_NAME:latest
 	elif [[ "$BRANCH" == "feature-"* ]]; then
-		docker build . -t ghcr.io/$IMAGE_NAME:sit -t ghcr.io/$IMAGE_NAME:latest
-		docker push ghcr.io/$IMAGE_NAME:sit
+		docker build . -t $REGISTRY/$IMAGE_NAME:sit -t $REGISTRY/$IMAGE_NAME:latest
 	else
-		docker build . -t ghcr.io/$IMAGE_NAME:dev -t ghcr.io/$IMAGE_NAME:latest
-		docker push ghcr.io/$IMAGE_NAME:dev
+		docker build . -t $REGISTRY/$IMAGE_NAME:dev -t $REGISTRY/$IMAGE_NAME:latest
 	fi
+
+	docker push --all-tags $REGISTRY/$IMAGE_NAME
 }
 
 main() {
