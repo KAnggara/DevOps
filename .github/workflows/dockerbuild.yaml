@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feature-dockerbuild
+      - feature-dockerHub
     paths:
       - "dockerbuild/**"
       - "dockerfile"
