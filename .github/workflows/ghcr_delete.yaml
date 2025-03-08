@@ -1,4 +1,4 @@
-name: Build Docker Image and Push to GHCR
+name: Delete Images from Registry
 
 on:
   push:
@@ -6,27 +6,26 @@ on:
       - main
       - feature-dockerbuild
     paths:
+      - "ghcr/delete/**"
       - "dockerbuild/**"
       - "dockerfile"
       - "dockerFile"
       - "DockerFile"
       - "Dockerfile"
       - ".github/workflows/dockerbuild.yaml"
+      - ".github/workflows/ghcr_delete.yaml"
 
 jobs:
-  dockerbuild:
+  ghcr_delete:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
       attestations: write
       id-token: write
-    name: Build Docker Image
+    name: Delete Images from Registry
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/dockerbuild@feature-dockerbuild
+      - uses: KAnggara/DevOps/ghcr/delete@feature-dockerbuild
         with:
-          path: test/bun
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN }}

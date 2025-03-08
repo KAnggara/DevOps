@@ -1,6 +1,6 @@
-name: "Docker Image Build"
+name: "Docker Image Build ghcr"
 
-description: "Greet someone"
+description: "Docker Image Build and upload to ghcr"
 
 inputs:
   path:
@@ -12,6 +12,9 @@ inputs:
   password:
     description: "Password or personal access token used to log against the Docker registry"
     required: true
+  github_token:
+    description: "The secrets that you create are available to use in GitHub Actions workflows"
+    required: true
 
 runs:
   using: "composite"
@@ -21,34 +24,15 @@ runs:
       env:
         WORK_DIR: ${{ inputs.path }}
         REGISTRY: ghcr.io
+        SHA: ${{ github.sha }}
+        BRANCH: ${{ github.head_ref || github.ref_name }} 
         USERNAME: ${{ inputs.username }}
         PASSWORD: ${{ inputs.password }}
         IMAGE_NAME: ${{ github.repository }}
       run: $GITHUB_ACTION_PATH/build.sh
-
-    # - name: Extract metadata (tags, labels) for Docker
-    #   id: meta
-    #   uses: docker/metadata-action@v5.6.1
-    #   with:
-    #     images: ghcr.io/${{ github.repository }}
 
     - name: Removing login credentials for "ghcr.io"
       if: always()
       shell: bash
       run: $GITHUB_ACTION_PATH/post.sh
 
-    # - name: Build and push Docker image
-    #   id: push
-    #   uses: docker/build-push-action@v6.13.0
-    #   with:
-    #     push: true
-    #     context: "{{defaultContext}}:${{ inputs.path }}"
-    #     tags: ${{ steps.meta.outputs.tags }}
-    #     labels: ${{ steps.meta.outputs.labels }}
-
-    # - name: Generate artifact attestation
-    #   uses: actions/attest-build-provenance@v2.2.0
-    #   with:
-    #     subject-name: ghcr.io/${{ github.repository }}
-    #     subject-digest: ${{ steps.push.outputs.digest }}
-    #     push-to-registry: true
