@@ -44,6 +44,6 @@ jobs:
       - uses: KAnggara/DevOps/dockerbuild@feature-dockerHub
         with:
           path: test/bun
-          registry: index.docker.io/v1
+          registry: docker.io
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
