@@ -12,9 +12,12 @@ inputs:
   password:
     description: "Password or personal access token used to log against the Docker registry"
     required: true
-  github_token:
-    description: "The secrets that you create are available to use in GitHub Actions workflows"
+  registry:
+    description: "Docker Push registry"
     required: true
+  image_name:
+    description: "Image name, Default Repository name"
+    required: false
 
 runs:
   using: "composite"
@@ -22,17 +25,19 @@ runs:
     - name: Test Docker is installed
       shell: bash
       env:
-        WORK_DIR: ${{ inputs.path }}
-        REGISTRY: ghcr.io
         SHA: ${{ github.sha }}
-        BRANCH: ${{ github.head_ref || github.ref_name }} 
+        WORK_DIR: ${{ inputs.path }}
+        REGISTRY: ${{ inputs.registry }}
         USERNAME: ${{ inputs.username }}
         PASSWORD: ${{ inputs.password }}
-        IMAGE_NAME: ${{ github.repository }}
+        IMAGE_NAME: ${{ inputs.image_name || github.repository }}
+        BRANCH: ${{ github.head_ref || github.ref_name }} 
       run: $GITHUB_ACTION_PATH/build.sh
 
-    - name: Removing login credentials for "ghcr.io"
+    - name: Removing login credentials for ${{ inputs.registry }}
       if: always()
       shell: bash
+      env:
+        REGISTRY: ${{ inputs.registry }}
       run: $GITHUB_ACTION_PATH/post.sh
 

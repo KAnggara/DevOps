@@ -23,16 +23,20 @@ docker_build() {
 		cd $WORK_DIR
 	fi
 
+	# To Lowercase
 	IMAGE_NAME=$(echo "$IMAGE_NAME" | sed 's/.*/\L&/')
 
 	echo "Branch nya adalah $BRANCH"
 
 	if [[ "$BRANCH" == "main" || "$BRANCH" == "master" ]]; then
 		DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
+		echo "Tag nya adalah release-$DATE"
 		docker build . -t $REGISTRY/$IMAGE_NAME:release-$DATE -t $REGISTRY/$IMAGE_NAME:latest
 	elif [[ "$BRANCH" == "feature-"* ]]; then
+		echo "Tag nya adalah sit-$SHORT_SHA"
 		docker build . -t $REGISTRY/$IMAGE_NAME:sit-$SHORT_SHA -t $REGISTRY/$IMAGE_NAME:latest
 	else
+		echo "Tag nya adalah dev-$SHORT_SHA"
 		docker build . -t $REGISTRY/$IMAGE_NAME:dev-$SHORT_SHA -t $REGISTRY/$IMAGE_NAME:latest
 	fi
 
