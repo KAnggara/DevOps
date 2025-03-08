@@ -23,4 +23,5 @@ jobs:
       - name: Create version
         shell: bash
         run: |
-          echo $majorMinorPatch
+          git tag v$majorMinorPatch
+          git push origin --tags
