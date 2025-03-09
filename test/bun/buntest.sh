@@ -7,7 +7,6 @@ abort() {
 }
 
 override_config() {
-	pwd
 	if [[ -n "$WORK_DIR" ]]; then
 		cd $WORK_DIR
 	fi
