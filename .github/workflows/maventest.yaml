@@ -4,13 +4,13 @@ on:
   push:
     branches:
       - main
-      - feature-maventest
+      - feature-mavenTest
     paths:
-      - "mvntest/**"
+      - "test/mvn/**"
       - ".github/workflows/maventest.yaml"
 
 jobs:
-  maventest:
+  mavenTest:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -20,6 +20,6 @@ jobs:
     name: Maven Test
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/mvntest@feature-maventest
+      - uses: KAnggara/DevOps/test/mvn@feature-mavenTest
         with:
-          path: test/mvn
+          path: action_test/mvn

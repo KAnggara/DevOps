@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4.2.2
       - uses: KAnggara/DevOps/dockerbuild@feature-dockerHub
         with:
-          path: test/bun
+          path: action_test/bun
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v4.2.2
       - uses: KAnggara/DevOps/dockerbuild@feature-dockerHub
         with:
-          path: test/bun
+          path: action_test/bun
           registry: docker.io
           image_name: kanggara75/devops
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
