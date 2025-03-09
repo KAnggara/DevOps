@@ -1,0 +1,49 @@
+name: Bun Test 🧪
+
+on:
+  push:
+    branches:
+      - main
+      - feature-bunTest
+    paths:
+      - "test/bun/**"
+      - ".github/workflows/bunTest.yaml"
+
+jobs:
+  bunTest:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    name: Bun Test
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: use Default
+        uses: KAnggara/DevOps/test/bun@feature-bunTest
+        with:
+          path: action_test/bun
+
+      - run: |
+          cd action_test/bun
+          rm .env
+      - name: Default with Version
+        uses: KAnggara/DevOps/test/bun@feature-bunTest
+        with:
+          path: action_test/bun
+          bun_version: 1.2.0
+
+      - run: |
+          cd action_test/bun
+          rm .env
+          rm .env.example
+      - name: Default with Dot Env
+        uses: KAnggara/DevOps/test/bun@feature-bunTest
+        with:
+          path: action_test/bun
+          dot_env: ${{ secrets.BUN_ENV_ACTION_TEST }}
+
+      - uses: KAnggara/DevOps/test/bun@feature-bunTest
+        with:
+          path: action_test/bun

@@ -7,7 +7,7 @@ on:
       - feature-mavenTest
     paths:
       - "test/mvn/**"
-      - ".github/workflows/maventest.yaml"
+      - ".github/workflows/mavenTest.yaml"
 
 jobs:
   mavenTest:
