@@ -36,7 +36,6 @@ jobs:
           path: action_test/bun
           dot_env: ${{ secrets.BUN_ENV_ACTION_TEST }}
 
-      - run: rm .env
       - uses: KAnggara/DevOps/test/bun@feature-bunTest
         with:
           path: action_test/bun
