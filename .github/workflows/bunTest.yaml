@@ -1,16 +1,16 @@
-name: Maven Test 🧪
+name: Bun Test 🧪
 
 on:
   push:
     branches:
       - main
-      - feature-mavenTest
+      - feature-bunTest
     paths:
-      - "test/mvn/**"
-      - ".github/workflows/mavenTest.yaml"
+      - "test/bun/**"
+      - ".github/workflows/bunTest.yaml"
 
 jobs:
-  mavenTest:
+  bunTest:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -20,6 +20,6 @@ jobs:
     name: Maven Test
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/test/mvn@feature-mavenTest
+      - uses: KAnggara/DevOps/test/bun@feature-bunTest
         with:
-          path: action_test/mvn
+          path: action_test/bun
