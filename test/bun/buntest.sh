@@ -15,15 +15,15 @@ override_config() {
 		if [[ -f .env ]]; then
 			echo "Rewrite .env"
 			printf "%s" "$DOTENV" >.env
-		elif [[ -f env.example ]]; then
-			echo "Rewrite env.example to .env"
-			cp env.example .env
+		elif [[ -f .env.example ]]; then
+			echo "Copy .env.example to .env"
+			cp .env.example .env
 		fi
 	elif [[ -f .env ]]; then
 		echo "DOTENV var not exist, keep it as is"
-	elif [[ -f env.example ]]; then
-		echo "Rewrite env.example to .env"
-		cp env.example .env
+	elif [[ -f .env.example ]]; then
+		echo "Copy .env.example to .env"
+		cp .env.example .env
 	else
 		echo "DOTENV var not exist, keep it as is"
 	fi

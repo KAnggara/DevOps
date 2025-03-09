@@ -1,15 +1,21 @@
 export class Calc {
-  static add(a: number, b: number) {
+  static tambah(a: number, b: number) {
     return a + b;
   }
-  static div(a: number, b: number) {
+
+  static kurang(a: number, b: number) {
     return a - b;
   }
-  static sum(...numbers: number[]) {
-    let sum = 0;
-    for (const element of numbers) {
-      sum += element;
-    }
-    return sum;
+
+  static kali(a: number, b: number) {
+    return a * b;
+  }
+
+  static bagi(a: number, b: number) {
+    return a / b;
+  }
+
+  static mod(a: number, b: number) {
+    return a % b;
   }
 }
