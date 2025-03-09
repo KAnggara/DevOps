@@ -20,19 +20,26 @@ jobs:
     name: Bun Test
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/test/bun@feature-bunTest
+      - name: use Default
+        uses: KAnggara/DevOps/test/bun@feature-bunTest
         with:
           path: action_test/bun
 
-      - uses: KAnggara/DevOps/test/bun@feature-bunTest
+      - run: |
+          cd action_test/bun
+          rm .env
+      - name: Default with Version
+        uses: KAnggara/DevOps/test/bun@feature-bunTest
         with:
           path: action_test/bun
           bun_version: 1.2.0
 
-      - run: pwd
-      - run: rm .env
-      - run: rm .env.example
-      - uses: KAnggara/DevOps/test/bun@feature-bunTest
+      - run: |
+          cd action_test/bun
+          rm .env
+          rm .env.example
+      - name: Default with Dot Env
+        uses: KAnggara/DevOps/test/bun@feature-bunTest
         with:
           path: action_test/bun
           dot_env: ${{ secrets.BUN_ENV_ACTION_TEST }}
