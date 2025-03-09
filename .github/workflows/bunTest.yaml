@@ -29,6 +29,7 @@ jobs:
           path: action_test/bun
           bun_version: 1.2.0
 
+      - run: pwd
       - run: rm .env
       - run: rm .env.example
       - uses: KAnggara/DevOps/test/bun@feature-bunTest
