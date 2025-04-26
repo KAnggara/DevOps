@@ -22,7 +22,7 @@ docker_build() {
 	if [[ -n "$WORK_DIR" ]]; then
 		cd $WORK_DIR
 	fi
-
+	pwd
 	# To Lowercase
 	IMAGE_NAME=$(echo "$IMAGE_NAME" | sed 's/.*/\L&/')
 

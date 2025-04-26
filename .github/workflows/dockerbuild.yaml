@@ -25,7 +25,7 @@ jobs:
     name: Build and Push to GHCR
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/dockerbuild@feature-dockerHub
+      - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
         with:
           path: action_test/bun
           registry: ghcr.io
@@ -41,7 +41,7 @@ jobs:
     name: Build and Push to Docker Hub
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/dockerbuild@feature-dockerHub
+      - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
         with:
           path: action_test/bun
           registry: docker.io
