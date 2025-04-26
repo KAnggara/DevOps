@@ -16,6 +16,13 @@ inputs:
     description: 'Java distribution. See the list of supported distributions in README file, default `temurin`'
     default: "temurin"
     required: false
+  retention-days:
+    description: >
+      Duration after which artifact will expire in days. 0 means using default retention.
+      Minimum 1 day.
+      Maximum 90 days unless changed from the repository settings page.
+    default: "30"
+    required: false
 
 runs:
   using: "composite"
@@ -37,3 +44,4 @@ runs:
       with:
         name: ${{ github.event.repository.name }}
         path: mavenbuild
+        retention-days: ${{ inputs.retention-days }}
