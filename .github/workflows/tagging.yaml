@@ -1,0 +1,27 @@
+name: 🏷️ Tags Versioning
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lcov:
+    runs-on: ubuntu-24.04
+    name: Tags Versioning
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v3.1.1
+        with:
+          versionSpec: "6.0.x"
+      - name: Execute GitVersion
+        uses: gittools/actions/gitversion/execute@v3.1.1
+      - name: Create version
+        shell: bash
+        run: |
+          git tag v$majorMinorPatch
+          git push origin --tags

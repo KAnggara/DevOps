@@ -6,12 +6,13 @@ abort() {
 	exit 1
 }
 
-logout_docker() {
-	docker logout $REGISTRY
+logout_ghcr() {
+	gh auth logout
 }
 
 main() {
-	logout_docker
+	logout_ghcr
+	echo "Logout from GHCR"
 }
 
 main || abort "Post Run Execute Error!"

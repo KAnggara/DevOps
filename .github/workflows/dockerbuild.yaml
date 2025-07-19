@@ -1,9 +1,11 @@
-name: Build Docker Image and Push to GHCR
+name: Build Docker Image and Push to Registry
 
 on:
   push:
     branches:
       - main
+      - feature-dockerbuild
+      - feature-dockerHub
     paths:
       - "dockerbuild/**"
       - "dockerfile"
@@ -20,11 +22,29 @@ jobs:
       packages: write
       attestations: write
       id-token: write
-    name: Build Docker Image
+    name: Build and Push to GHCR
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: KAnggara/DevOps/dockerbuild@HEAD
+      - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
         with:
-          path: test/bun
+          path: action_test/bun
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+  dockerbuild2:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    name: Build and Push to Docker Hub
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
+        with:
+          path: action_test/bun
+          registry: docker.io
+          image_name: kanggara75/devops
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}

@@ -1,6 +1,6 @@
-name: "Docker Image Build"
+name: "Docker Image Build ghcr"
 
-description: "Greet someone"
+description: "Docker Image Build and upload to ghcr"
 
 inputs:
   path:
@@ -12,6 +12,12 @@ inputs:
   password:
     description: "Password or personal access token used to log against the Docker registry"
     required: true
+  registry:
+    description: "Docker Push registry"
+    required: true
+  image_name:
+    description: "Image name, Default Repository name"
+    required: false
 
 runs:
   using: "composite"
@@ -19,36 +25,19 @@ runs:
     - name: Test Docker is installed
       shell: bash
       env:
+        SHA: ${{ github.sha }}
         WORK_DIR: ${{ inputs.path }}
-        REGISTRY: ghcr.io
+        REGISTRY: ${{ inputs.registry }}
         USERNAME: ${{ inputs.username }}
         PASSWORD: ${{ inputs.password }}
-        IMAGE_NAME: ${{ github.repository }}
+        IMAGE_NAME: ${{ inputs.image_name || github.repository }}
+        BRANCH: ${{ github.head_ref || github.ref_name }} 
       run: $GITHUB_ACTION_PATH/build.sh
 
-    # - name: Extract metadata (tags, labels) for Docker
-    #   id: meta
-    #   uses: docker/metadata-action@v5.6.1
-    #   with:
-    #     images: ghcr.io/${{ github.repository }}
-
-    - name: Removing login credentials for "ghcr.io"
+    - name: Removing login credentials for ${{ inputs.registry }}
       if: always()
       shell: bash
+      env:
+        REGISTRY: ${{ inputs.registry }}
       run: $GITHUB_ACTION_PATH/post.sh
 
-    # - name: Build and push Docker image
-    #   id: push
-    #   uses: docker/build-push-action@v6.13.0
-    #   with:
-    #     push: true
-    #     context: "{{defaultContext}}:${{ inputs.path }}"
-    #     tags: ${{ steps.meta.outputs.tags }}
-    #     labels: ${{ steps.meta.outputs.labels }}
-
-    # - name: Generate artifact attestation
-    #   uses: actions/attest-build-provenance@v2.2.0
-    #   with:
-    #     subject-name: ghcr.io/${{ github.repository }}
-    #     subject-digest: ${{ steps.push.outputs.digest }}
-    #     push-to-registry: true
