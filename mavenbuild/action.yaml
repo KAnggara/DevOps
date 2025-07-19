@@ -2,6 +2,10 @@ name: "Maven Build"
 description: "Build Maven Project to jar packege and upload artifact"
 
 inputs:
+  override-properties:
+    description: "Value of override properties"
+    default: "false"
+    required: false
   application-properties:
     description: "Value of application properties from secrets"
     required: false
@@ -9,11 +13,11 @@ inputs:
     description: "Path of Maven Project, default ./"
     required: false
   java-version:
-    description: 'The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file, default `21`'
+    description: "The Java version to set up. Takes a whole or semver Java version. See examples of supported syntax in README file, default `21`"
     default: "21"
     required: false
   distribution:
-    description: 'Java distribution. See the list of supported distributions in README file, default `temurin`'
+    description: "Java distribution. See the list of supported distributions in README file, default `temurin`"
     default: "temurin"
     required: false
   retention-days:
@@ -21,12 +25,12 @@ inputs:
       Duration after which artifact will expire in days. 0 means using default retention.
       Minimum 1 day.
       Maximum 90 days unless changed from the repository settings page.
-    default: "30"
+    default: "7"
     required: false
 
 runs:
   using: "composite"
-  steps:      
+  steps:
     - name: Using Java ${{ inputs.java-version }} ${{ inputs.distribution }}
       uses: actions/setup-java@v4.7.0
       with:
@@ -38,6 +42,7 @@ runs:
       env:
         WORK_DIR: ${{ inputs.path }}
         APPLICATION_PROPERTIES: ${{ inputs.application-properties }}
+        OVERRIDE_PROPERTIES: ${{ inputs.override-properties }}
       run: $GITHUB_ACTION_PATH/mavenbuild.sh
 
     - uses: actions/upload-artifact@v4

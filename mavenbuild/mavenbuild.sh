@@ -11,6 +11,11 @@ override_config() {
 		cd $WORK_DIR
 	fi
 
+	if [[ "${OVERRIDE_PROPERTIES:-false}" != "true" ]]; then
+			echo "Skipping override_config karena OVERRIDE_PROPERTIES != true"
+			return
+	fi
+
 	if [[ -n "$APPLICATION_PROPERTIES" ]]; then
 		if [[ -f src/main/resources/application.properties ]]; then
 			echo "Rewrite application.properties"
