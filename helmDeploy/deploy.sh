@@ -21,6 +21,15 @@ update_chart_yaml(){
 	git update-index --assume-unchanged "$CHART_FILE"
 }
 
+setup_kubectl() {
+	if [[ -z "$KUBE_CONFIG_DATA" ]]; then
+		echo "KUBE_CONFIG_DATA tidak diset, menggunakan konfigurasi default."
+	else
+		echo "$KUBE_CONFIG_DATA" | base64 -d > $HOME/.kube/config
+		chmod 600 $HOME/.kube/config
+	fi
+}
+
 main() {
 	IFS=$'\n' read -r -d '' -a folders < <(git diff --name-only "$REF_BASE" "$REF_HEAD" | grep -E '/values\.yaml$' | awk -F/ '{print $1}' | sort -u && printf '\0')
 

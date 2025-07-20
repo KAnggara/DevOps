@@ -3,9 +3,9 @@ name: "Create version number"
 description: "Create version number based on git commit"
 
 inputs:
-  path:
-    description: "Path of Maven Project, default ./"
-    required: false
+  kube_config_data:
+    description: "KUBE_CONFIG_DATA secret, base64 encoded kubeconfig file"
+    required: true
 
 runs:
   using: "composite"
@@ -25,14 +25,8 @@ runs:
     - name: Helm tool installer
       uses: Azure/setup-helm@v4.3.0
 
-    - name: Restore kubeconfig
+    - name: Deploy Helm chart
       shell: bash
       env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-      run: |
-        echo "$KUBE_CONFIG_DATA" | base64 -d > $HOME/.kube/config
-        chmod 600 $HOME/.kube/config
-
-    - name: Create version
-      shell: bash
+        KUBE_CONFIG_DATA: ${{ inputs.kube_config_data }}
       run: $GITHUB_ACTION_PATH/deploy.sh
