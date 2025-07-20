@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -euo pipefail
 
 abort() {
 	printf "%s\n" "$@"
@@ -14,8 +14,24 @@ versioning() {
 	echo $GitVersion_MajorMinorPatch >gitversion/MajorMinorPatch.txt
 }
 
+check_changes() {
+	REF_BASE=$ {1:-HEAD~1}
+	REF_HEAD=$ {2:-HEAD}
+
+	changed_files=$(git diff --name-only "$REF_BASE" "$REF_HEAD")
+
+	if echo "$changed_files" | grep -qx 'values.yaml'; then
+		echo "File 'values.yaml' terdeteksi berubah antara $REF_BASE dan $REF_HEAD."
+		exit 0
+	else
+		echo "Tidak ada perubahan pada 'values.yaml' antara $REF_BASE dan $REF_HEAD."
+		exit 1
+	fi
+}
+
 main() {
 	versioning
+	check_changes
 }
 
 main || abort "Versioning Execute Error!"
