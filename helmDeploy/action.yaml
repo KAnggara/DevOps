@@ -1,0 +1,34 @@
+name: "Create version number"
+
+description: "Create version number based on git commit"
+
+inputs:
+  path:
+    description: "Path of Maven Project, default ./"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Fetch all history for all tags and branches
+      shell: bash
+      run: git fetch --prune --unshallow
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v3.1.1
+      with:
+        versionSpec: "6.0.x"
+
+    - name: Execute GitVersion
+      uses: gittools/actions/gitversion/execute@v3.1.1
+
+    - name: Create version
+      shell: bash
+      run: $GITHUB_ACTION_PATH/version.sh
+
+    - name: Upload version
+      uses: actions/upload-artifact@v4.6.0
+      with:
+        name: gitversion
+        path: gitversion
+        overwrite: "true"
