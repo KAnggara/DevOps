@@ -25,6 +25,8 @@ setup_kubectl() {
 	if [[ -z "$KUBECONFIG_DATA" ]]; then
 		abort "KUBECONFIG_DATA tidak diset"
 	else
+		echo "Restoring kubeconfig"
+		mkdir -p $HOME/.kube
 		echo "$KUBECONFIG_DATA" | base64 -d > $HOME/.kube/config
 		chmod 600 $HOME/.kube/config
 	fi
