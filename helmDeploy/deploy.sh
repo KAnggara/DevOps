@@ -12,12 +12,9 @@ REF_HEAD=${2:-HEAD}
 update_chart_yaml(){
   local FOLDER=$1
   local GIT_VERSION=$GitVersion_SemVer
-	CHART_FILE="Chart.yaml"
+	local CHART_FILE="Chart.yaml"
 
   [[ -f "$CHART_FILE" ]] || abort "Chart.yaml tidak ditemukan"
-	pwd
-	ls -la
-
 	sed -E -i "s/^(version:[[:space:]]*).*/\1${GIT_VERSION}/" "$CHART_FILE"
 	sed -E -i "s/^(name:[[:space:]]*).*/\1${FOLDER}/" "$CHART_FILE"
 
@@ -41,6 +38,9 @@ main() {
 	update_chart_yaml "${folders[0]}"
 	echo "Preparing for deploy ${folders[0]}"
 	cp "${folders[0]}/values.yaml" ./values.yaml
+	pwd
+	ls -la
+	cat Chart.yaml
 }
 
 
