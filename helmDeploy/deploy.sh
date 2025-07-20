@@ -41,6 +41,8 @@ main() {
 	pwd
 	ls -la
 	cat Chart.yaml
+	cat values.yaml
+	helm upgrade --install ${folders[0]} . -f values.yaml
 }
 
 
