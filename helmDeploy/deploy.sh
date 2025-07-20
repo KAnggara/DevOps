@@ -11,15 +11,16 @@ REF_HEAD=${2:-HEAD}
 
 update_chart_yaml(){
   local FOLDER=$1
-  local GIT_VERSION=$(gitversion /showvariable FullSemVer)
+  local GIT_VERSION=$FullSemVer
 	CHART_FILE="Chart.yaml"
 
   [[ -f "$CHART_FILE" ]] || abort "Chart.yaml tidak ditemukan"
 	pwd
 	ls -la
 
-	sed -E -i '' "s/^(version:[[:space:]]*).*/\1${GIT_VERSION}/" "$CHART_FILE"
-	sed -E -i '' "s/^(name:[[:space:]]*).*/\1${FOLDER}/" "$CHART_FILE"
+	sed -E -i "s/^(version:[[:space:]]*).*/\1${GIT_VERSION}/" "$CHART_FILE"
+	sed -E -i "s/^(name:[[:space:]]*).*/\1${FOLDER}/" "$CHART_FILE"
+
 	git update-index --assume-unchanged "$CHART_FILE"
 }
 
