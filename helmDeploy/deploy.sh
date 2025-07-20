@@ -15,6 +15,8 @@ update_chart_yaml(){
 	CHART_FILE="Chart.yaml"
 
   [[ -f "$CHART_FILE" ]] || abort "Chart.yaml tidak ditemukan"
+	pwd
+	ls -la
 
 	sed -E -i '' "s/^(version:[[:space:]]*).*/\1${GIT_VERSION}/" "$CHART_FILE"
 	sed -E -i '' "s/^(name:[[:space:]]*).*/\1${FOLDER}/" "$CHART_FILE"
