@@ -6,12 +6,6 @@ inputs:
   path:
     description: "Path of Maven Project, default ./"
     required: false
-  username:
-    description: "Username used to log against the Docker registry"
-    required: true
-  password:
-    description: "Password or personal access token used to log against the Docker registry"
-    required: true
 
 runs:
   using: "composite"
