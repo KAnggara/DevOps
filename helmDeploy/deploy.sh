@@ -22,10 +22,10 @@ update_chart_yaml(){
 }
 
 setup_kubectl() {
-	if [[ -z "$KUBE_CONFIG_DATA" ]]; then
-		echo "KUBE_CONFIG_DATA tidak diset, menggunakan konfigurasi default."
+	if [[ -z "$KUBECONFIG_DATA" ]]; then
+		abort "KUBECONFIG_DATA tidak diset"
 	else
-		echo "$KUBE_CONFIG_DATA" | base64 -d > $HOME/.kube/config
+		echo "$KUBECONFIG_DATA" | base64 -d > $HOME/.kube/config
 		chmod 600 $HOME/.kube/config
 	fi
 }
@@ -47,6 +47,7 @@ main() {
 	update_chart_yaml "${folders[0]}"
 	echo "Preparing for deploy ${folders[0]}"
 	cp "${folders[0]}/values.yaml" ./values.yaml
+	setup_kubectl
 	pwd
 	ls -la
 	cat Chart.yaml
