@@ -11,7 +11,7 @@ REF_HEAD=${2:-HEAD}
 
 update_chart_yaml(){
   local FOLDER=$1
-  local GIT_VERSION=$FullSemVer
+  local GIT_VERSION=$GitVersion_SemVer
 	CHART_FILE="Chart.yaml"
 
   [[ -f "$CHART_FILE" ]] || abort "Chart.yaml tidak ditemukan"
