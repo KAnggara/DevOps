@@ -15,8 +15,8 @@ versioning() {
 }
 
 check_changes() {
-	REF_BASE=$ {1:-HEAD~1}
-	REF_HEAD=$ {2:-HEAD}
+	REF_BASE=${1:-HEAD~1}
+	REF_HEAD=${2:-HEAD}
 
 	changed_files=$(git diff --name-only "$REF_BASE" "$REF_HEAD")
 
