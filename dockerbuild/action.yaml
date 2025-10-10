@@ -1,28 +1,33 @@
 name: "Docker Image Build ghcr"
-
-description: "Docker Image Build and upload to ghcr"
+description: "Build & Push Docker/Podman Image to GHCR"
 
 inputs:
   path:
-    description: "Path of Maven Project, default ./"
+    description: "Path of the project (default ./)"
     required: false
+    default: "./"
+  dockerfile_path:
+    description: "Path to Dockerfile (default ./Dockerfile)"
+    required: false
+    default: "./Dockerfile"
   username:
-    description: "Username used to log against the Docker registry"
+    description: "Username for registry login"
     required: true
   password:
-    description: "Password or personal access token used to log against the Docker registry"
+    description: "Password or token for registry login"
     required: true
   registry:
-    description: "Docker Push registry"
+    description: "Target registry (e.g. ghcr.io)"
     required: true
   image_name:
-    description: "Image name, Default Repository name"
+    description: "Image name (default repository)"
     required: false
+    default: "${{ github.repository }}"
 
 runs:
   using: "composite"
   steps:
-    - name: Test Docker is installed
+    - name: Build and Push Image
       shell: bash
       env:
         SHA: ${{ github.sha }}
@@ -30,14 +35,14 @@ runs:
         REGISTRY: ${{ inputs.registry }}
         USERNAME: ${{ inputs.username }}
         PASSWORD: ${{ inputs.password }}
-        IMAGE_NAME: ${{ inputs.image_name || github.repository }}
-        BRANCH: ${{ github.head_ref || github.ref_name }} 
+        DOCKERFILE: ${{ inputs.dockerfile_path }}
+        IMAGE_NAME: ${{ inputs.image_name }}
+        BRANCH: ${{ github.head_ref || github.ref_name }}
       run: $GITHUB_ACTION_PATH/build.sh
 
-    - name: Removing login credentials for ${{ inputs.registry }}
+    - name: Remove Docker credentials
       if: always()
       shell: bash
       env:
         REGISTRY: ${{ inputs.registry }}
       run: $GITHUB_ACTION_PATH/post.sh
-
