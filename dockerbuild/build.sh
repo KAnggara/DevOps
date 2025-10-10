@@ -1,51 +1,55 @@
 #!/bin/bash
-set -eu
+set -euo pipefail
 
-SHORT_SHA=$(echo $SHA | head -c 7)
+SHORT_SHA=$(echo "${SHA}" | head -c 7)
 
 abort() {
-	printf "%s\n" "$@"
-	exit 1
+  echo "❌ $*" >&2
+  exit 1
 }
 
 login() {
-	if [[ -z "$USERNAME" ]]; then
-		abort "Username is Required!"
-	elif [[ -z "$PASSWORD" ]]; then
-		abort "Password is Required!"
-	else
-		echo "$PASSWORD" | docker login -u $USERNAME --password-stdin $REGISTRY
-	fi
+  echo "🔐 Login ke registry: ${REGISTRY}"
+  echo "${PASSWORD}" | docker login -u "${USERNAME}" --password-stdin "${REGISTRY}" || abort "Gagal login!"
 }
 
 docker_build() {
-	if [[ -n "$WORK_DIR" ]]; then
-		cd $WORK_DIR
-	fi
-	pwd
-	# To Lowercase
-	IMAGE_NAME=$(echo "$IMAGE_NAME" | sed 's/.*/\L&/')
+  echo "📦 Building image..."
 
-	echo "Branch nya adalah $BRANCH"
+  cd "${WORK_DIR}" || abort "Workdir tidak ditemukan: ${WORK_DIR}"
+  pwd
 
-	if [[ "$BRANCH" == "main" || "$BRANCH" == "master" ]]; then
-		DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
-		echo "Tag nya adalah release-$DATE"
-		docker build . -t $REGISTRY/$IMAGE_NAME:release-$DATE -t $REGISTRY/$IMAGE_NAME:latest
-	elif [[ "$BRANCH" == "feature-"* ]]; then
-		echo "Tag nya adalah sit-$SHORT_SHA"
-		docker build . -t $REGISTRY/$IMAGE_NAME:sit-$SHORT_SHA -t $REGISTRY/$IMAGE_NAME:latest
-	else
-		echo "Tag nya adalah dev-$SHORT_SHA"
-		docker build . -t $REGISTRY/$IMAGE_NAME:dev-$SHORT_SHA -t $REGISTRY/$IMAGE_NAME:latest
-	fi
+  IMAGE_NAME=$(echo "${IMAGE_NAME}" | tr '[:upper:]' '[:lower:]')
 
-	docker push --all-tags $REGISTRY/$IMAGE_NAME
+  DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
+
+  # Validasi Dockerfile
+  if [[ ! -f "${DOCKERFILE}" ]]; then
+    abort "Dockerfile tidak ditemukan di path: ${DOCKERFILE}"
+  fi
+
+  case "${BRANCH}" in
+    main|master)
+      TAG1="release-${DATE}"
+      ;;
+    feature-*)
+      TAG1="sit-${SHORT_SHA}"
+      ;;
+    *)
+      TAG1="dev-${SHORT_SHA}"
+      ;;
+  esac
+
+  echo "🔖 Tag yang digunakan: ${TAG1}, latest"
+  docker build -f "${DOCKERFILE}" -t "${REGISTRY}/${IMAGE_NAME}:${TAG1}" -t "${REGISTRY}/${IMAGE_NAME}:latest" .
+
+  echo "🚀 Push image ke ${REGISTRY}"
+  docker push --all-tags "${REGISTRY}/${IMAGE_NAME}"
 }
 
 main() {
-	login
-	docker_build
+  login
+  docker_build
 }
 
-main || abort "Docker Build Execute Error!"
+main "$@"
