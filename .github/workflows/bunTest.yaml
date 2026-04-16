@@ -1,4 +1,4 @@
-name: Bun Test 🧪
+name: Bun Test
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
     paths:
       - "test/bun/**"
       - ".github/workflows/bunTest.yaml"
+  workflow_dispatch:
 
 jobs:
   bunTest:

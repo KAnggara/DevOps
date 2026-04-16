@@ -1,4 +1,4 @@
-name: Delete Images from Registry
+name: GHCR Image Cleanup
 
 on:
   push:
@@ -15,6 +15,7 @@ on:
       - "Dockerfile"
       - ".github/workflows/dockerbuild.yaml"
       - ".github/workflows/ghcr_delete.yaml"
+  workflow_dispatch:
 
 jobs:
   ghcr_delete:

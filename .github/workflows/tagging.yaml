@@ -1,9 +1,10 @@
-name: 🏷️ Tags Versioning
+name: Git Tagging & Versioning
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   lcov:
