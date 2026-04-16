@@ -1,0 +1,32 @@
+name: "Create version number"
+
+description: "Create version number based on git commit"
+
+inputs:
+  kubeconfig:
+    description: "KUBECONFIG secret, base64 encoded kubeconfig file"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Fetch all history for all tags and branches
+      shell: bash
+      run: git fetch --prune --unshallow
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v4.0.1
+      with:
+        versionSpec: "6.3.x"
+
+    - name: Execute GitVersion
+      uses: gittools/actions/gitversion/execute@v4.0.1
+
+    - name: Helm tool installer
+      uses: Azure/setup-helm@v4.3.0
+
+    - name: Deploy Helm chart
+      shell: bash
+      env:
+        KUBECONFIG_DATA: ${{ inputs.kubeconfig }}
+      run: $GITHUB_ACTION_PATH/deploy.sh
