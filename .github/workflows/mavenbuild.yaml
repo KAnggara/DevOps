@@ -8,6 +8,7 @@ on:
     paths:
       - "mavenbuild/**"
       - ".github/workflows/mavenbuild.yaml"
+  workflow_dispatch:
 
 jobs:
   mavenbuild:

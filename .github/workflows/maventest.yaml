@@ -1,4 +1,4 @@
-name: Maven Test 🧪
+name: Maven Test
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
     paths:
       - "test/mvn/**"
       - ".github/workflows/mavenTest.yaml"
+  workflow_dispatch:
 
 jobs:
   mavenTest:

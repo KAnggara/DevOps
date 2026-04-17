@@ -1,4 +1,4 @@
-name: Lcov Test
+name: LCOV Coverage Analysis
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
       - "lcov/**"
       - "test/bun/coverage/**"
       - ".github/workflows/lcov.yaml"
+  workflow_dispatch:
 
 jobs:
   lcov:

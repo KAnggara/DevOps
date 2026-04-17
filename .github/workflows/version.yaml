@@ -1,4 +1,4 @@
-name: Versioning Test
+name: Automated Versioning
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
     paths:
       - "version/**"
       - ".github/workflows/version.yaml"
+  workflow_dispatch:
 
 jobs:
   lcov:

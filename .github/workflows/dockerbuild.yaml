@@ -13,6 +13,7 @@ on:
       - "DockerFile"
       - "Dockerfile"
       - ".github/workflows/dockerbuild.yaml"
+  workflow_dispatch:
 
 jobs:
   dockerbuild:
