@@ -49,3 +49,20 @@ jobs:
           image_name: kanggara75/devops
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
+  dockerbuild_run_number:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    name: Build and Push with Run Number
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
+        with:
+          path: action_test/bun
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          tag_strategy: run_number
