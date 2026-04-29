@@ -30,7 +30,11 @@ docker_build() {
 
   case "${BRANCH}" in
     main|master)
-      TAG1="release-${DATE}"
+      if [[ "${TAG_STRATEGY:-date}" == "run_number" && -n "${RUN_NUMBER:-}" ]]; then
+        TAG1="release-${RUN_NUMBER}"
+      else
+        TAG1="release-${DATE}"
+      fi
       ;;
     feature-*)
       TAG1="sit-${SHORT_SHA}"

@@ -23,6 +23,10 @@ inputs:
     description: "Image name (default repository)"
     required: false
     default: "${{ github.repository }}"
+  tag_strategy:
+    description: "Strategy for tagging release images on main/master (date or run_number)"
+    required: false
+    default: "date"
 
 runs:
   using: "composite"
@@ -38,6 +42,8 @@ runs:
         DOCKERFILE: ${{ inputs.dockerfile_path }}
         IMAGE_NAME: ${{ inputs.image_name }}
         BRANCH: ${{ github.head_ref || github.ref_name }}
+        TAG_STRATEGY: ${{ inputs.tag_strategy }}
+        RUN_NUMBER: ${{ github.run_number }}
       run: $GITHUB_ACTION_PATH/build.sh
 
     - name: Remove Docker credentials
