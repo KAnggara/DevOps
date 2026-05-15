@@ -45,7 +45,21 @@ docker_build() {
   esac
 
   echo "🔖 Tag yang digunakan: ${TAG1}, latest"
-  docker build -f "${DOCKERFILE}" -t "${REGISTRY}/${IMAGE_NAME}:${TAG1}" -t "${REGISTRY}/${IMAGE_NAME}:latest" .
+
+  # Aktifkan BuildKit untuk performa lebih baik dan fitur caching modern
+  export DOCKER_BUILDKIT=1
+
+  # Strategi Caching:
+  # 1. --cache-from: Mengambil layer cache dari image 'latest' di registry untuk mempercepat build.
+  # 2. --build-arg BUILDKIT_INLINE_CACHE=1: Menyimpan metadata cache di dalam image yang di-push agar bisa digunakan build berikutnya.
+  # 3. --pull: Memastikan base image selalu up-to-date.
+  docker build \
+    --build-arg BUILDKIT_INLINE_CACHE=1 \
+    --cache-from "${REGISTRY}/${IMAGE_NAME}:latest" \
+    --pull \
+    -f "${DOCKERFILE}" \
+    -t "${REGISTRY}/${IMAGE_NAME}:${TAG1}" \
+    -t "${REGISTRY}/${IMAGE_NAME}:latest" .
 
   echo "🚀 Push image ke ${REGISTRY}"
   docker push --all-tags "${REGISTRY}/${IMAGE_NAME}"
