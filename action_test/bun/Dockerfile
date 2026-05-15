@@ -11,9 +11,11 @@ FROM base AS install
 WORKDIR /temp/prd
 
 # install with --production (exclude devDependencies)
-COPY . .
+COPY package.json bun.lockb ./
 
 RUN bun install --frozen-lockfile --production
+
+COPY . .
 
 RUN bun build \
 	--compile \
