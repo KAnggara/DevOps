@@ -25,7 +25,7 @@ jobs:
       id-token: write
     name: Build and Push to GHCR
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v7.0.1
       - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
         with:
           path: action_test/bun
@@ -41,7 +41,7 @@ jobs:
       id-token: write
     name: Build and Push to Docker Hub
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v7.0.1
       - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
         with:
           path: action_test/bun
@@ -58,7 +58,7 @@ jobs:
       id-token: write
     name: Build and Push with Run Number
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v7.0.1
       - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
         with:
           path: action_test/bun

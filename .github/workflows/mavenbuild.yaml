@@ -20,7 +20,7 @@ jobs:
       id-token: write
     name: Build Maven
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v7.0.1
       - uses: KAnggara/DevOps/mavenbuild@feature-mavenbuild
         with:
           path: action_test/mvn

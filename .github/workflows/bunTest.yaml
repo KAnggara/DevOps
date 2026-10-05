@@ -20,7 +20,7 @@ jobs:
       id-token: write
     name: Bun Test
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v7.0.1
       - name: use Default
         uses: KAnggara/DevOps/test/bun@feature-bunTest
         with:

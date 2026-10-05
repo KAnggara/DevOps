@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-24.04
     name: Lcov Test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
       - uses: KAnggara/DevOps/lcov@HEAD
         with:
           coverage-files: coverage/lcov.info
