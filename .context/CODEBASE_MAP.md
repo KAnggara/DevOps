@@ -1,7 +1,15 @@
 # Codebase Navigation Map
 
 ## Overview
-Repository `KAnggara/DevOps` contains reusable GitHub Composite Actions and shell orchestration scripts supporting multi-runtime CI/CD workflows (Java/Maven, TypeScript/Bun, Docker/Podman, GHCR management, and Helm/Kubernetes deployments).
+Repository `KAnggara/DevOps` contains reusable GitHub Composite Actions and shell orchestration scripts supporting multi-runtime CI/CD workflows (Java/Maven, TypeScript/Bun, Go, Node.js, Docker/Podman, GHCR management, and Helm/Kubernetes deployments).
+
+---
+
+## 0. Root Action (`action.yml`)
+- **Responsibility**: Marketplace entrypoint and meta action descriptor for GitHub Actions Marketplace compatibility.
+- **Entry / Key Files**:
+  - [`action.yml`](file:///Users/i/work/KAnggara/DevOps/action.yml) — Defines GitHub Marketplace branding metadata (`icon: play-circle`, `color: blue`), author, and action description.
+- **Consumers**: GitHub Marketplace directory.
 
 ---
 

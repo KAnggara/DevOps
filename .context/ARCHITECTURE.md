@@ -11,6 +11,7 @@ The `DevOps` repository provides modular, composable GitHub Actions and shell sc
 graph TD
     subgraph GitHub Workflows [GitHub CI/CD Workflows]
         WF_Test[bunTest / maventest / goTest / nodeTest]
+        WF_TestAll[testAll - @latest]
         WF_Build[mavenbuild]
         WF_Docker[dockerbuild]
         WF_Ver[version / tagging]
@@ -19,6 +20,7 @@ graph TD
     end
 
     subgraph Actions [Composite Actions]
+        Act_Root["action.yml (Marketplace Meta)"]
         Act_TestBun["test/bun"]
         Act_TestGo["test/go"]
         Act_TestMvn["test/mvn"]

@@ -35,5 +35,29 @@
 - **Context**: In multi-service repositories, running redeployments for unmodified applications creates unnecessary Kubernetes churn and pipeline latency.
 - **Decision**: Detect modified services by running `git diff --name-only "$REF_BASE" "$REF_HEAD"` targeting `apps/*.yaml`, deploying only services with explicit changes using `helm upgrade --install --atomic`.
 - **Consequences**:
-  - Selective deployments prevent unnecessary rollouts.
-  - Requires consumer repositories to follow the convention of maintaining values files under `apps/<app-name>.yaml`.
+- Selective deployments prevent unnecessary rollouts.
+- Requires consumer repositories to follow the convention of maintaining values files under `apps/<app-name>.yaml`.
+
+---
+
+## ADR-004: Root Action Metadata for GitHub Actions Marketplace
+- **Status**: Accepted
+- **Date**: 2026-10-05
+- **Source**: Codebase evidence ([`action.yml`](file:///Users/i/work/KAnggara/DevOps/action.yml)) & Developer request
+- **Context**: GitHub Actions Marketplace mandates an `action.yml` file located directly at the repository root with mandatory metadata (`name`, `author`, `branding`) to enable publishing.
+- **Decision**: Place an umbrella/meta `action.yml` composite action at the root with official branding metadata, while preserving modular sub-actions in their respective directories (`test/`, `dockerbuild/`, `mavenbuild/`, etc.).
+- **Consequences**:
+- Enables listing on GitHub Actions Marketplace.
+- Downstream users can consume individual sub-actions (`KAnggara/DevOps/<sub-action>@<version>`) or the root action.
+
+---
+
+## ADR-005: Unified Multi-Action Integration Testing Suite with @latest
+- **Status**: Accepted
+- **Date**: 2026-10-05
+- **Source**: Codebase evidence ([`.github/workflows/testAll.yaml`](file:///Users/i/work/KAnggara/DevOps/.github/workflows/testAll.yaml))
+- **Context**: Testing individual actions in isolated workflows left potential regressions between shared runner environments and the rolling `latest` release tag undetected.
+- **Decision**: Create a comprehensive integration workflow (`testAll.yaml`) running parallel jobs for all actions utilizing the `@latest` release tag.
+- **Consequences**:
+- Immediate automated verification of all actions before and after new releases.
+- Ensures the `latest` pointer functions correctly across diverse runtimes (Go, Node, Java, Bun).
