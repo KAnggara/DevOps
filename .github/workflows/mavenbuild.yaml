@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feature-mavenbuild
     paths:
       - "mavenbuild/**"
       - ".github/workflows/mavenbuild.yaml"
@@ -21,6 +20,6 @@ jobs:
     name: Build Maven
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: KAnggara/DevOps/mavenbuild@feature-mavenbuild
+      - uses: KAnggara/DevOps/mavenbuild@v0.1.17
         with:
           path: action_test/mvn

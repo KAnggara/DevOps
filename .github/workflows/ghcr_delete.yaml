@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - feature-dockerbuild
-      - feature-dockerHub
     paths:
       - "ghcr/delete/**"
       - "dockerbuild/**"
@@ -28,6 +26,6 @@ jobs:
     name: Delete Images from Registry
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: KAnggara/DevOps/ghcr/delete@feature-dockerbuild
+      - uses: KAnggara/DevOps/ghcr/delete@v0.1.17
         with:
           github_token: ${{ secrets.GH_TOKEN }}

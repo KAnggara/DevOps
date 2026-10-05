@@ -15,4 +15,4 @@ jobs:
     name: Versioning Test
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: KAnggara/DevOps/version@HEAD
+      - uses: KAnggara/DevOps/version@v0.1.17

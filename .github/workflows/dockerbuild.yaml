@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - feature-dockerbuild
-      - feature-dockerHub
     paths:
       - "dockerbuild/**"
       - "dockerfile"
@@ -26,7 +24,7 @@ jobs:
     name: Build and Push to GHCR
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
+      - uses: KAnggara/DevOps/dockerbuild@v0.1.17
         with:
           path: action_test/bun
           registry: ghcr.io
@@ -42,7 +40,7 @@ jobs:
     name: Build and Push to Docker Hub
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
+      - uses: KAnggara/DevOps/dockerbuild@v0.1.17
         with:
           path: action_test/bun
           registry: docker.io
@@ -59,7 +57,7 @@ jobs:
     name: Build and Push with Run Number
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: KAnggara/DevOps/dockerbuild@feature-dockerBuild
+      - uses: KAnggara/DevOps/dockerbuild@v0.1.17
         with:
           path: action_test/bun
           registry: ghcr.io

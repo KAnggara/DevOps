@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feature-bunTest
     paths:
       - "test/bun/**"
       - ".github/workflows/bunTest.yaml"
@@ -22,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - name: use Default
-        uses: KAnggara/DevOps/test/bun@feature-bunTest
+        uses: KAnggara/DevOps/test/bun@v0.1.17
         with:
           path: action_test/bun
 
@@ -30,7 +29,7 @@ jobs:
           cd action_test/bun
           rm .env
       - name: Default with Version
-        uses: KAnggara/DevOps/test/bun@feature-bunTest
+        uses: KAnggara/DevOps/test/bun@v0.1.17
         with:
           path: action_test/bun
           bun_version: 1.2.0
@@ -40,11 +39,11 @@ jobs:
           rm .env
           rm .env.example
       - name: Default with Dot Env
-        uses: KAnggara/DevOps/test/bun@feature-bunTest
+        uses: KAnggara/DevOps/test/bun@v0.1.17
         with:
           path: action_test/bun
           dot_env: ${{ secrets.BUN_ENV_ACTION_TEST }}
 
-      - uses: KAnggara/DevOps/test/bun@feature-bunTest
+      - uses: KAnggara/DevOps/test/bun@v0.1.17
         with:
           path: action_test/bun

@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feature-mavenTest
     paths:
       - "test/mvn/**"
       - ".github/workflows/mavenTest.yaml"
@@ -21,6 +20,6 @@ jobs:
     name: Maven Test
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: KAnggara/DevOps/test/mvn@feature-mavenTest
+      - uses: KAnggara/DevOps/test/mvn@v0.1.17
         with:
           path: action_test/mvn
