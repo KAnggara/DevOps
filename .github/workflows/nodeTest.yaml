@@ -7,6 +7,7 @@ on:
       - feature-nodeTest
     paths:
       - "test/node/**"
+      - "action_test/node/**"
       - ".github/workflows/nodeTest.yaml"
   workflow_dispatch:
 
