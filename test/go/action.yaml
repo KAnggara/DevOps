@@ -1,0 +1,35 @@
+name: "Go Test"
+description: "Test Go Project"
+
+inputs:
+  path:
+    description: "Path of Go Project, default ./"
+    required: false
+    default: "./"
+  go-version:
+    description: "Go Version, default 1.23.x"
+    required: false
+    default: "1.23.x"
+  dot_env:
+    description: "Go env Variable, default existing in project"
+    required: false
+  coverage:
+    description: "Whether to generate coverage profile, default false"
+    required: false
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ inputs.go-version }}
+
+    - name: Generate application properties and test
+      shell: bash
+      env:
+        DOTENV: ${{ inputs.dot_env }}
+        WORK_DIR: ${{ inputs.path }}
+        COVERAGE: ${{ inputs.coverage }}
+      run: $GITHUB_ACTION_PATH/gotest.sh
