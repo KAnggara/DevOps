@@ -1,0 +1,85 @@
+name: Test All Actions (Latest Tag)
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
+      - ".context/**"
+      - "LICENSE"
+      - ".gitignore"
+  workflow_dispatch:
+
+jobs:
+  test-bun:
+    runs-on: ubuntu-24.04
+    name: Test Bun Action
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Run Bun Test Action
+        uses: KAnggara/DevOps/test/bun@latest
+        with:
+          path: action_test/bun
+
+  test-go:
+    runs-on: ubuntu-24.04
+    name: Test Go Action
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Run Go Test Action
+        uses: KAnggara/DevOps/test/go@latest
+        with:
+          path: action_test/go
+          coverage: "true"
+
+  test-node:
+    runs-on: ubuntu-24.04
+    name: Test Node Action
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Run Node Test Action
+        uses: KAnggara/DevOps/test/node@latest
+        with:
+          path: action_test/node
+
+  test-mvn:
+    runs-on: ubuntu-24.04
+    name: Test Maven Action
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Run Maven Test Action
+        uses: KAnggara/DevOps/test/mvn@latest
+        with:
+          path: action_test/mvn
+
+  test-mavenbuild:
+    runs-on: ubuntu-24.04
+    name: Test Maven Build Action
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Run Maven Build Action
+        uses: KAnggara/DevOps/mavenbuild@latest
+        with:
+          path: action_test/mvn
+
+  test-lcov:
+    runs-on: ubuntu-24.04
+    name: Test LCOV Action
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Run LCOV Action
+        uses: KAnggara/DevOps/lcov@latest
+        with:
+          coverage-files: coverage/lcov.info
+          working-dir: action_test/bun
+
+  test-version:
+    runs-on: ubuntu-24.04
+    name: Test Version Action
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Run Version Action
+        uses: KAnggara/DevOps/version@latest
+        with:
+          path: "./"

@@ -30,4 +30,6 @@ jobs:
         shell: bash
         run: |
           git tag v$majorMinorPatch
+          git tag -f latest
           git push origin --tags
+          git push origin latest --force
