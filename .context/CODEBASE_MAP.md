@@ -66,7 +66,7 @@ Repository `KAnggara/DevOps` contains reusable GitHub Composite Actions and shel
 ---
 
 ## 6. `test/` (Testing Suite Actions)
-- **Responsibility**: Modular automated testing execution across Bun (TypeScript/JavaScript), Go (Golang), and Java (Maven).
+- **Responsibility**: Modular automated testing execution across Bun (TypeScript/JavaScript), Go (Golang), Java (Maven), and Node.js.
 - **Sub-actions**:
   - **`test/bun/`**:
     - [`test/bun/action.yaml`](file:///Users/i/work/KAnggara/DevOps/test/bun/action.yaml) — Sets up Bun runtime (`oven-sh/setup-bun@v2`).
@@ -77,8 +77,11 @@ Repository `KAnggara/DevOps` contains reusable GitHub Composite Actions and shel
   - **`test/mvn/`**:
     - [`test/mvn/action.yaml`](file:///Users/i/work/KAnggara/DevOps/test/mvn/action.yaml) — Sets up JDK (Temurin 21).
     - [`test/mvn/mvntest.sh`](file:///Users/i/work/KAnggara/DevOps/test/mvn/mvntest.sh) — Injects application properties and executes `./mvnw test` / `mvn test`.
-- **Dependencies**: Bun runtime, Go (`actions/setup-go`), Java Temurin, Maven.
-- **Consumers**: PR validation workflows (`.github/workflows/bunTest.yaml`, `.github/workflows/goTest.yaml`, `.github/workflows/maventest.yaml`).
+  - **`test/node/`**:
+    - [`test/node/action.yaml`](file:///Users/i/work/KAnggara/DevOps/test/node/action.yaml) — Sets up Node.js runtime (`actions/setup-node@v4`), supports custom `node-version`, `.env` injection, and configurable `test_command`.
+    - [`test/node/nodetest.sh`](file:///Users/i/work/KAnggara/DevOps/test/node/nodetest.sh) — Manages `.env` creation, resolves dependencies via `npm ci` / `npm install`, and executes the designated test command.
+- **Dependencies**: Bun runtime, Go (`actions/setup-go`), Java Temurin, Node.js (`actions/setup-node`), Maven.
+- **Consumers**: PR validation workflows (`.github/workflows/bunTest.yaml`, `.github/workflows/goTest.yaml`, `.github/workflows/maventest.yaml`, `.github/workflows/nodeTest.yaml`).
 
 ---
 
@@ -93,9 +96,10 @@ Repository `KAnggara/DevOps` contains reusable GitHub Composite Actions and shel
 ---
 
 ## 8. `action_test/`
-- **Responsibility**: Integration and regression testbed containing sample target projects (sample Maven Spring Boot/Java project, sample Bun application, sample Go application).
+- **Responsibility**: Integration and regression testbed containing sample target projects (sample Maven Spring Boot/Java project, sample Bun application, sample Go application, sample Node.js application).
 - **Entry / Key Files**:
   - [`action_test/mvn/pom.xml`](file:///Users/i/work/KAnggara/DevOps/action_test/mvn/pom.xml) — Test Java project.
   - [`action_test/bun/package.json`](file:///Users/i/work/KAnggara/DevOps/action_test/bun/package.json) — Test Bun project with test specs.
   - [`action_test/go/go.mod`](file:///Users/i/work/KAnggara/DevOps/action_test/go/go.mod) — Test Go project with test specs.
+  - [`action_test/node/package.json`](file:///Users/i/work/KAnggara/DevOps/action_test/node/package.json) — Test Node.js project with native test specs.
 - **Consumers**: Local test harness for validating GitHub Actions in CI workflows.

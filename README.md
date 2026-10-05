@@ -9,7 +9,7 @@ This repository contains a collection of reusable GitHub Actions and scripts des
 - [**`helmDeploy/`**](./helmDeploy/README.md): Kubernetes deployment using Helm.
 - [**`lcov/`**](./lcov/README.md): LCOV coverage reporting.
 - [**`mavenbuild/`**](./mavenbuild/README.md): Maven project builds.
-- [**`test/`**](./test/README.md): Unified testing actions (Bun, Go, Maven).
+- [**`test/`**](./test/README.md): Unified testing actions (Bun, Go, Maven, Node.js).
 - [**`version/`**](./version/README.md): Automated version management.
 - [**`action_test/`**](./action_test/README.md): Sample projects for testing these actions.
 
