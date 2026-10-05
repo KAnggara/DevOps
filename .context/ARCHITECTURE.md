@@ -10,7 +10,7 @@ The `DevOps` repository provides modular, composable GitHub Actions and shell sc
 ```mermaid
 graph TD
     subgraph GitHub Workflows [GitHub CI/CD Workflows]
-        WF_Test[bunTest / maventest]
+        WF_Test[bunTest / maventest / goTest]
         WF_Build[mavenbuild]
         WF_Docker[dockerbuild]
         WF_Ver[version / tagging]
@@ -20,6 +20,7 @@ graph TD
 
     subgraph Actions [Composite Actions]
         Act_TestBun["test/bun"]
+        Act_TestGo["test/go"]
         Act_TestMvn["test/mvn"]
         Act_Lcov["lcov"]
         Act_MvnBuild["mavenbuild"]
@@ -36,6 +37,7 @@ graph TD
     end
 
     WF_Test --> Act_TestBun
+    WF_Test --> Act_TestGo
     WF_Test --> Act_TestMvn
     Act_TestBun --> Act_Lcov
     WF_Build --> Act_MvnBuild --> GH_Artifacts

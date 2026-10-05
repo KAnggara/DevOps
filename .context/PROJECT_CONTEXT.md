@@ -7,7 +7,7 @@ The `DevOps` repository provides a centralized collection of modular, production
 
 ## 2. System Boundaries
 - **In-Scope**:
-  - Reusable GitHub Actions for Java (Maven), TypeScript (Bun), Docker/Podman, Helm, LCOV, GitVersion, and GHCR pruning.
+  - Reusable GitHub Actions for Go (Golang), Java (Maven), TypeScript (Bun), Docker/Podman, Helm, LCOV, GitVersion, and GHCR pruning.
   - Test suites and mock sample applications (`action_test/`) to validate CI actions before publishing.
   - Standardized shell scripts with credential isolation and cleanup hooks.
 - **Out-of-Scope**:
@@ -41,6 +41,7 @@ The `DevOps` repository provides a centralized collection of modular, production
 
 ## 6. Runtime Environment & Constraints
 - **Shell**: Bash with `set -euo pipefail`.
+- **Go**: Default Go 1.23.x (`actions/setup-go@v5`).
 - **Java**: Default JDK 21 (Eclipse Temurin distribution).
 - **JavaScript/TypeScript**: Bun runtime (`oven-sh/setup-bun@v2`).
 - **Containers**: Docker with BuildKit enabled (`DOCKER_BUILDKIT=1`).

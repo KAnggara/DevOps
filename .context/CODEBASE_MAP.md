@@ -66,16 +66,19 @@ Repository `KAnggara/DevOps` contains reusable GitHub Composite Actions and shel
 ---
 
 ## 6. `test/` (Testing Suite Actions)
-- **Responsibility**: Modular automated testing execution across Bun (TypeScript/JavaScript) and Java (Maven).
+- **Responsibility**: Modular automated testing execution across Bun (TypeScript/JavaScript), Go (Golang), and Java (Maven).
 - **Sub-actions**:
   - **`test/bun/`**:
     - [`test/bun/action.yaml`](file:///Users/i/work/KAnggara/DevOps/test/bun/action.yaml) — Sets up Bun runtime (`oven-sh/setup-bun@v2`).
     - [`test/bun/buntest.sh`](file:///Users/i/work/KAnggara/DevOps/test/bun/buntest.sh) — Generates `.env` from secret inputs, executes `bun test --coverage`.
+  - **`test/go/`**:
+    - [`test/go/action.yaml`](file:///Users/i/work/KAnggara/DevOps/test/go/action.yaml) — Sets up Go runtime (`actions/setup-go@v5`), supports `.env` configuration, and optional coverage output.
+    - [`test/go/gotest.sh`](file:///Users/i/work/KAnggara/DevOps/test/go/gotest.sh) — Manages `.env` creation, downloads modules (`go mod download`), and executes `go test -v ./...`.
   - **`test/mvn/`**:
     - [`test/mvn/action.yaml`](file:///Users/i/work/KAnggara/DevOps/test/mvn/action.yaml) — Sets up JDK (Temurin 21).
     - [`test/mvn/mvntest.sh`](file:///Users/i/work/KAnggara/DevOps/test/mvn/mvntest.sh) — Injects application properties and executes `./mvnw test` / `mvn test`.
-- **Dependencies**: Bun runtime, Java Temurin, Maven.
-- **Consumers**: PR validation workflows (`.github/workflows/bunTest.yaml`, `.github/workflows/maventest.yaml`).
+- **Dependencies**: Bun runtime, Go (`actions/setup-go`), Java Temurin, Maven.
+- **Consumers**: PR validation workflows (`.github/workflows/bunTest.yaml`, `.github/workflows/goTest.yaml`, `.github/workflows/maventest.yaml`).
 
 ---
 
@@ -90,8 +93,9 @@ Repository `KAnggara/DevOps` contains reusable GitHub Composite Actions and shel
 ---
 
 ## 8. `action_test/`
-- **Responsibility**: Integration and regression testbed containing sample target projects (sample Maven Spring Boot/Java project, sample Bun application).
+- **Responsibility**: Integration and regression testbed containing sample target projects (sample Maven Spring Boot/Java project, sample Bun application, sample Go application).
 - **Entry / Key Files**:
   - [`action_test/mvn/pom.xml`](file:///Users/i/work/KAnggara/DevOps/action_test/mvn/pom.xml) — Test Java project.
   - [`action_test/bun/package.json`](file:///Users/i/work/KAnggara/DevOps/action_test/bun/package.json) — Test Bun project with test specs.
+  - [`action_test/go/go.mod`](file:///Users/i/work/KAnggara/DevOps/action_test/go/go.mod) — Test Go project with test specs.
 - **Consumers**: Local test harness for validating GitHub Actions in CI workflows.

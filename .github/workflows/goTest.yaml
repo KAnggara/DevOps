@@ -1,0 +1,58 @@
+name: Go Test
+
+on:
+  push:
+    branches:
+      - main
+      - feature-goTest
+    paths:
+      - "test/go/**"
+      - ".github/workflows/goTest.yaml"
+  workflow_dispatch:
+
+jobs:
+  goTest:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    name: Go Test
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - name: Test Default
+        uses: ./test/go
+        with:
+          path: action_test/go
+
+      - name: Clean .env
+        run: |
+          cd action_test/go
+          rm -f .env
+
+      - name: Test with Go Version and Coverage
+        uses: ./test/go
+        with:
+          path: action_test/go
+          go-version: "1.23.x"
+          coverage: "true"
+
+      - name: Clean .env and example
+        run: |
+          cd action_test/go
+          rm -f .env
+          rm -f .env.example
+
+      - name: Test with Dot Env input
+        uses: ./test/go
+        with:
+          path: action_test/go
+          dot_env: |
+            BAGIA=20
+            BAGIB=4
+            BAGIC=5
+            TAMBAHA=4
+            TAMBAHB=6
+            TAMBAHC=10
+            MODA=22
+            MODB=7
+            MODC=1

@@ -4,4 +4,5 @@ This directory contains various GitHub Actions for running tests across differen
 
 ## Subdirectories
 - `bun/`: Actions for running tests with Bun.
+- `go/`: Actions for running tests with Go.
 - `mvn/`: Actions for running tests with Maven.
