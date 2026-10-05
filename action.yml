@@ -1,0 +1,16 @@
+name: "DevOps Actions Suite"
+description: "Comprehensive CI/CD GitHub Actions suite for testing, building, and deploying applications."
+author: "KAnggara"
+
+branding:
+  icon: "play-circle"
+  color: "blue"
+
+runs:
+  using: "composite"
+  steps:
+    - name: DevOps Suite Info
+      shell: bash
+      run: |
+        echo "🚀 KAnggara DevOps Actions Suite v1.0.0"
+        echo "Provides: test/bun, test/go, test/mvn, test/node, dockerbuild, mavenbuild, helmDeploy, ghcr/delete, lcov, version"
