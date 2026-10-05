@@ -1,0 +1,12 @@
+{
+  "name": "calc-node",
+  "version": "1.0.0",
+  "description": "Sample Node.js calc app for action test",
+  "main": "calc.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "KAnggara",
+  "license": "MIT"
+}

@@ -1,0 +1,59 @@
+name: Node Test
+
+on:
+  push:
+    branches:
+      - main
+      - feature-nodeTest
+    paths:
+      - "test/node/**"
+      - "action_test/node/**"
+      - ".github/workflows/nodeTest.yaml"
+  workflow_dispatch:
+
+jobs:
+  nodeTest:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    name: Node Test
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - name: Test Default
+        uses: ./test/node
+        with:
+          path: action_test/node
+
+      - name: Clean .env
+        run: |
+          cd action_test/node
+          rm -f .env
+
+      - name: Test with Node Version and Custom Test Command
+        uses: ./test/node
+        with:
+          path: action_test/node
+          node-version: "20.x"
+          test_command: "node --test"
+
+      - name: Clean .env and example
+        run: |
+          cd action_test/node
+          rm -f .env
+          rm -f .env.example
+
+      - name: Test with Dot Env input
+        uses: ./test/node
+        with:
+          path: action_test/node
+          dot_env: |
+            BAGIA=20
+            BAGIB=4
+            BAGIC=5
+            TAMBAHA=4
+            TAMBAHB=6
+            TAMBAHC=10
+            MODA=22
+            MODB=7
+            MODC=1
